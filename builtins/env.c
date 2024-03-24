@@ -34,3 +34,16 @@ int	ft_env(t_minishell *minishell)
 	}
 	return (SUCCESS);
 }
+
+int env(char **env)
+{
+    int i;
+
+    i = 0;
+    while(env[i] != NULL)
+    {
+        printf("%s\n", env[i]);
+        i++;
+    }
+    return (1);
+}
