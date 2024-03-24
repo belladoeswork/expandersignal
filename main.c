@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **env)
 	t_token		*new_tokens;
 
 	print_lumumbash();
-	signals();
+	ft_signals();
 	ft_init_minishell(&minishell, env);
 	while (1)
 	{

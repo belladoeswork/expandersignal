@@ -64,6 +64,8 @@ bool	ft_is_delimiter(char *delimiter, char *str);
 void	ft_heredoc(t_redir_node *redir, int p[2]);
 // pipes_exec.c
 int		ft_exec_child(t_node *node);
+// int ft_exec_child(char **args);
+
 // exec.c
 int		ft_get_exit_status(int status);
 int		ft_exec_node(t_node *tree, bool piped, t_minishell *minishell);
@@ -88,13 +90,17 @@ int		ft_in(t_redir_node *redir_list, int *status);
 int		ft_append(t_redir_node *redir_list, int *status);
 
 // expander.c
-t_token *expander(t_token *tokenized_tokens, char **env);
+t_token *ft_expander(t_token *tokenized_tokens, char **env);
 
 // signals.c
 
-void    signals();
-void    signal_ctrl_slash(int numsig);
-void    signal_ctrl_d(int numsig);
-void    signal_ctrl_c(int numsig);
+void    ft_signals();
+void    ft_signal_ctrl_slash(int numsig);
+void    ft_signal_ctrl_d(int numsig);
+void    ft_signal_ctrl_c(int numsig);
+
+
+// ADDED TODAY
+void ft_free_split_args(char **split_args);
 
 #endif
