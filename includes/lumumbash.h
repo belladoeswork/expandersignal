@@ -34,10 +34,13 @@ void	ft_exit(char **args, t_minishell *minishell);
 int		ft_pwd(void);
 void	ft_init_envlst(t_minishell *minishell);
 int		ft_env(t_minishell *minishell);
-int		ft_unset(char **args, t_minishell *minishell);
+// int		ft_unset(char **args, t_minishell *minishell);
+int	ft_unset(char **args, t_minishell **minishell);
 void	ft_update_envlst(char *key, char *value, bool create,
 			t_minishell *minishell);
-int		ft_export(char **argv, t_minishell *minishell);
+// int		ft_export(char **argv, t_minishell *minishell);
+int	ft_export(char **argv, t_minishell **minishell);
+int 	ft_strlen_double_pers(char **str);
 // help
 size_t	ft_strlen(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);

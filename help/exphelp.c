@@ -22,7 +22,10 @@ bool	ft_env_entry_exists(char *key, t_minishell *minishell)
 	while (envlst)
 	{
 		if (!ft_strcmp(key, envlst->key))
+		{
+			printf("");
 			return (true);
+		}
 		envlst = envlst->next;
 	}
 	return (false);
