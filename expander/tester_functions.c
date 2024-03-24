@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tester_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:53:25 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/23 17:37:18 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/24 23:10:19 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_print_double_d(char **str, char *from, int n)
 	}
 }
 
-int	count_number_of_words(char ***triple_d_str)
+int	ft_count_number_of_words(char ***triple_d_str)
 {
 	int			i;
 	int			j;
@@ -75,11 +75,11 @@ char	*ft_strcat(char *dest, char *src)
 	return (dest);
 }
 
-void	free_everything(t_lists_env envi,char **div_by_quote,char **clean)
+void	ft_free_everything(t_lists_env envi,char **div_by_quote,char **clean)
 {
 	//free(expanded_tile);
-	free_double_d(div_by_quote);
-	free_double_d(clean);
-	free_double_d(envi.p1);
-	free_double_d(envi.p2);
+	ft_free_double_d(div_by_quote);
+	ft_free_double_d(clean);
+	ft_free_double_d(envi.p1);
+	ft_free_double_d(envi.p2);
 }

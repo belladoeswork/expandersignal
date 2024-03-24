@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   new_ft_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:32:54 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/20 20:55:51 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/24 23:09:29 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 #include <ctype.h>
 
-int	count_words(char *str)
+int	ft_count_words(char *str)
 {
 	int	count;
 	int	i;
@@ -50,7 +50,7 @@ char	*ft_single_quote(char *str, int i)
 	i++;
 	while (str[i] != '\'')
 		i++;
-	splitted_str = calloc(i - tmp + 2, sizeof(char));
+	splitted_str = ft_calloc(i - tmp + 2, sizeof(char));
 	splitted_str[j] = '\'';
 	j++;
 	tmp++;
@@ -65,7 +65,7 @@ char	*ft_single_quote(char *str, int i)
 	return (splitted_str);
 }
 
-char	*until_single_quote(char *str, int i)
+char	*ft_until_single_quote(char *str, int i)
 {
 	int		tmp;
 	int		j;
@@ -75,7 +75,7 @@ char	*until_single_quote(char *str, int i)
 	j = 0;
 	while (str[i] != '\'' && str[i] != '\0')
 		i++;
-	splitted_str = calloc(i - tmp + 1, sizeof(char));
+	splitted_str = ft_calloc(i - tmp + 1, sizeof(char));
 	if (!splitted_str)
 		return (NULL);
 	while (str[tmp] != '\'' && str[tmp] != '\0')
@@ -88,7 +88,7 @@ char	*until_single_quote(char *str, int i)
 	return (splitted_str);
 }
 
-char	**new_ft_split(char *str, char c)
+char	**ft_new_ft_split(char *str, char c)
 {
 	char	**str_return ;
 	int		i;
@@ -96,7 +96,7 @@ char	**new_ft_split(char *str, char c)
 
 	i = 0;
 	j = 0;
-	str_return = ((calloc(count_words(str) + 1, sizeof(char *))));
+	str_return = ((ft_calloc(ft_count_words(str) + 1, sizeof(char *))));
 	if (!str_return)
 		return (NULL);
 	while (str[i] != 0)
@@ -104,7 +104,7 @@ char	**new_ft_split(char *str, char c)
 		if (str[i] == c)
 			str_return[j] = ft_single_quote(str, i);
 		else
-			str_return[j] = until_single_quote(str, i);
+			str_return[j] = ft_until_single_quote(str, i);
 		i += ft_strlen(str_return[j]);
 		j++;
 	}

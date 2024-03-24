@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_frees.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:48:14 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/21 14:10:44 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/24 23:02:56 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lumumbash.h"
 
-void	free_double_d(char **str)
+void	ft_free_double_d(char **str)
 {
 	int	i;
 

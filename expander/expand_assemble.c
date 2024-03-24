@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_assemble.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:47:05 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/23 19:52:40 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/24 23:00:34 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 
-char	*assemble(char **strings_to_assemble)
+char	*ft_assemble(char **strings_to_assemble)
 {
 	char	*assembled_string;
 	int		total_n;
@@ -26,7 +26,7 @@ char	*assemble(char **strings_to_assemble)
 		total_n += ft_strlen(strings_to_assemble[i]);
 		i++;
 	}
-	assembled_string = calloc(total_n + 1, sizeof(char));
+	assembled_string = ft_calloc(total_n + 1, sizeof(char));
 	if (assembled_string == NULL)
 		return (NULL);
 	i = 0;
@@ -37,11 +37,11 @@ char	*assemble(char **strings_to_assemble)
 		offset += ft_strlen(strings_to_assemble[i]);
 		i++;
 	}
-	free_double_d(strings_to_assemble);
+	ft_free_double_d(strings_to_assemble);
 	return (assembled_string);
 }
 
-int	my_strlen(long number)
+int	ft_my_strlen(long number)
 {
 	int	returnv;
 
@@ -70,8 +70,8 @@ char	*ft_itoa(int n)
 	int		i;
 
 	number = n;
-	i = my_strlen(number);
-	result = calloc((i + 1), sizeof(char));
+	i = ft_my_strlen(number);
+	result = ft_calloc((i + 1), sizeof(char));
 	if (!result)
 		return (NULL);
 	result[i--] = '\0';
@@ -92,13 +92,13 @@ char	*ft_itoa(int n)
 	return (result);
 }
 
-char	*indeed_expand(char *to_expand, char *b_equal[], char **a_equal)
+char	*ft_indeed_expand(char *to_expand, char *b_equal[], char **a_equal)
 {
 	int	k;
-	int	i;
+	// int	i;
 
 	k = 0;
-	i = 0;
+	// i = 0;
 	if (to_expand[1] == '?')
 	{
 		// char *str = calloc(2, sizeof(char));
@@ -152,7 +152,7 @@ char	*indeed_expand(char *to_expand, char *b_equal[], char **a_equal)
 // 	return (updated_str);
 // }
 
-char	*rem_quote(char *str)
+char	*ft_rem_quote(char *str)
 {
 	int	i;
 	int	j;
@@ -171,7 +171,7 @@ char	*rem_quote(char *str)
 	return (str);
 }
 
-char	*expand_assemble(char **str, char **b_equal, char **a_equal)
+char	*ft_expand_assemble(char **str, char **b_equal, char **a_equal)
 {
 	int		i;
 	int		n;
@@ -183,22 +183,22 @@ char	*expand_assemble(char **str, char **b_equal, char **a_equal)
 	n = 0;
 	while (str[n] != NULL)
 		n++;
-	expanded_str = calloc(n + 1, sizeof(char *));
+	expanded_str = ft_calloc(n + 1, sizeof(char *));
 	printf("n inside expand_assemble is : %d\n", n);
 	if (!expanded_str)
 		return (NULL);
 	i = 0;
 	while (i < n)
 	{
-		if ((check_if_expand(str[i], b_equal)))
-			expanded_str[i] = indeed_expand(str[i], b_equal, a_equal);
+		if ((ft_check_if_expand(str[i], b_equal)))
+			expanded_str[i] = ft_indeed_expand(str[i], b_equal, a_equal);
 		else
 			expanded_str[i] = ft_strdup(str[i]);
 		i++;
 	}
 	expanded_str[i] = NULL;
-	assembled_expanded_str = assemble(expanded_str);
-	return (noquotes = rem_quote(assembled_expanded_str), noquotes);
+	assembled_expanded_str = ft_assemble(expanded_str);
+	return (noquotes = ft_rem_quote(assembled_expanded_str), noquotes);
 }
 
 // 2 lines out of expand_assemble

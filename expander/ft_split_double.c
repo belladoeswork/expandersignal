@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_double.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:54:32 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/22 12:23:56 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/24 23:05:23 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**ft_double_strdup(char **str)
 	n = 0;
 	while(str[i] != NULL)
 		i++;
-	str_dup = calloc (i + 1, sizeof(char *));
+	str_dup = ft_calloc (i + 1, sizeof(char *));
 	while(str[n] != NULL)
 	{
 		str_dup[n] = ft_strdup(str[n]);
@@ -32,7 +32,7 @@ char	**ft_double_strdup(char **str)
 	str_dup[n] = NULL;
 	return (str_dup);
 }
-char	**all_in_one(char **final_strings, char ***new_str_str)
+char	**ft_all_in_one(char **final_strings, char ***new_str_str)
 {
 	int	i;
 	int	j;
@@ -64,7 +64,7 @@ char	**ft_string_to_double_d(char *str)
 {
 	char	**str_double;
 
-	str_double = calloc(2, sizeof(char *));
+	str_double = ft_calloc(2, sizeof(char *));
 	if (!str_double)
 		return (NULL);
 	str_double[0] = ft_strdup(str);
@@ -106,7 +106,7 @@ char	**ft_string_to_double_d(char *str)
 // 	return (final_strings);
 // }
 
-char	***allocate_and_populate_new_str_str(char **str, char c,
+char	***ft_allocate_and_populate_new_str_str(char **str, char c,
 		int *total_words)
 {
 	int		i;
@@ -119,7 +119,7 @@ char	***allocate_and_populate_new_str_str(char **str, char c,
 		i++;
 	//ft_print_double_d(str, "allocate and populate in ft_split_double", -1);
 	//printf("number of double d arrays of new_str_str inside alloc and populate : %d\n", i);
-	new_str_str = calloc(i + 1, sizeof(char **));
+	new_str_str = ft_calloc(i + 1, sizeof(char **));
 	if (!new_str_str)
 		return (NULL);
 	i = 0;
@@ -137,22 +137,22 @@ char	***allocate_and_populate_new_str_str(char **str, char c,
 	return (new_str_str);
 }
 
-char	**create_final_strings(char ***new_str_str, int total)
+char	**ft_create_final_strings(char ***new_str_str, int total)
 {
 	int		total_words;
 	char	**final_strings;
 
 	(void)total;
-	total_words = count_number_of_words(new_str_str);
+	total_words = ft_count_number_of_words(new_str_str);
 	printf("total amount of words is : %d\n", total_words);
-	final_strings = calloc(total_words + 1, sizeof(char *));
+	final_strings = ft_calloc(total_words + 1, sizeof(char *));
 	if (!final_strings)
 		return (NULL);
-	final_strings = all_in_one(final_strings, new_str_str);
+	final_strings = ft_all_in_one(final_strings, new_str_str);
 	return (final_strings);
 }
 
-void free_new_str_str(char ***new_str_str) 
+void ft_free_new_str_str(char ***new_str_str) 
 {
     if (new_str_str) {
         int i = 0;
@@ -186,13 +186,13 @@ char	**ft_split_double(char **str, char c)
 	char	***new_str_str;
 	char	**final_strings;
 
-	new_str_str = allocate_and_populate_new_str_str(str, c, &total_words);
+	new_str_str = ft_allocate_and_populate_new_str_str(str, c, &total_words);
 	// todo return dans la main comme ca je peux le free a la fin et strdup anywhere j'utilise new_str
 	if (!new_str_str)
 		return (NULL);
-	final_strings = create_final_strings(new_str_str, total_words);
+	final_strings = ft_create_final_strings(new_str_str, total_words);
 	//free(new_str_str);
 	// todo 
-	free_new_str_str(new_str_str);
+	ft_free_new_str_str(new_str_str);
 	return (final_strings);
 }
