@@ -1,0 +1,25 @@
+signals :
+https://indradhanush.github.io/blog/writing-a-unix-shell-part-3/
+https://www.geeksforgeeks.org/signals-c-language/
+https://www.tutorialspoint.com/c_standard_library/c_function_signal.htm
+https://stackoverflow.com/questions/1516122/how-to-capture-controld-signal
+https://www.ibm.com/docs/en/i/7.4?topic=ssw_ibm_i_74/apis/sigkill.html --> ctrl c sigkill
+https://docstore.mik.ua/orelly/networking/puis/appc_04.htm -> kill command
+
+
+// Handling signals in a Bash reimplementation involves setting up signal handlers to respond to specific signals sent to the shell process. Here's a general approach:
+
+//     Identify Signals to Handle: Determine which signals you want your shell to handle. Common signals include SIGINT (interrupt from keyboard, typically Ctrl+C), SIGTSTP (terminal stop signal, typically Ctrl+Z), SIGQUIT (quit signal, typically Ctrl+), and SIGCHLD (child process status change).
+
+//     Set Up Signal Handlers: Use the signal() or sigaction() function to set up signal handlers for the signals you want to handle. These handlers will define what action the shell should take when it receives each signal.
+
+//     Define Signal Handler Functions: Write functions to serve as the signal handlers. These functions will be called when the corresponding signal is received. Inside these functions, you can define the desired behavior for each signal.
+
+//     Register Signal Handlers: Register the signal handlers with the appropriate signals using signal() or sigaction().
+
+//     Handle Signals Appropriately: Inside each signal handler function, implement the desired behavior for the corresponding signal. This may include exiting the shell, ignoring the signal, or taking specific actions based on the signal received.
+
+// Here's a basic example in C:
+
+builtins :
+cd : https://stackoverflow.com/questions/298510/how-to-get-the-current-directory-in-a-c-program
