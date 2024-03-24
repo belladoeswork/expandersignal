@@ -8,7 +8,7 @@ char    *ft_search(char **p1, char **p2, char *str)
     k = 0;
     while (p1[k] != NULL)
     {
-        if (strncmp(str, p1[k], strlen(p1[k])) == 0 && (strlen(p1[k]) == (strlen(str))))
+        if (ft_strncmp(str, p1[k], ft_strlen(p1[k])) == 0 && (ft_strlen(p1[k]) == (ft_strlen(str))))
         {
             break; 
         }
@@ -17,7 +17,7 @@ char    *ft_search(char **p1, char **p2, char *str)
     return (ft_strdup(p2[k]));
 }
 
-char *expand_tilde(char *str, char **p1, char **p2)
+char *ft_expand_tilde(char *str, char **p1, char **p2)
 {
     int    i;
     int j;
@@ -35,7 +35,7 @@ char *expand_tilde(char *str, char **p1, char **p2)
     printf("inside str_tilde\n");
     while(str[i] != 0)
     {
-        if(str[i] == '~' && (isspace(str[i + 1]) || str[i + 1] == ':' || str[i + 1] == '/' || str[i + 1] == 0))
+        if(str[i] == '~' && (ft_isspace(str[i + 1]) || str[i + 1] == ':' || str[i + 1] == '/' || str[i + 1] == 0))
             n++;
         i++;
     }
@@ -50,12 +50,12 @@ char *expand_tilde(char *str, char **p1, char **p2)
     {
         str_tilde = ft_search(p1, p2, "HOME");
         printf("str_tilde is : %s\n", str_tilde);
-        str_expanded = calloc ((strlen(str_tilde) * n) + strlen(str) - n + 1, sizeof(char));
-        int tmp = (strlen(str_tilde) * n) + strlen(str) - n;
+        str_expanded = ft_calloc ((ft_strlen(str_tilde) * n) + ft_strlen(str) - n + 1, sizeof(char));
+        int tmp = (ft_strlen(str_tilde) * n) + ft_strlen(str) - n;
         printf("tmp is %d\n", tmp);
         while(l < tmp) //(ft_strlen(str_tilde) * n) + ft_strlen(str) - n)
         {
-            if (str[j] == '~' && (isspace(str[j + 1]) || str[j + 1] == ':' || str[j + 1] == '/' || str[j + 1] == 0))
+            if (str[j] == '~' && (ft_isspace(str[j + 1]) || str[j + 1] == ':' || str[j + 1] == '/' || str[j + 1] == 0))
             {
                 k = 0;
                 printf("inside if statement tilde expand_tilde\n");

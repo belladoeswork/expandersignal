@@ -12,11 +12,11 @@ static void	ft_init_minishell(t_minishell *minishell, char **env)
 }
 
 
-static void	start_execution(t_minishell *minishell)
+static void	ft_start_execution(t_minishell *minishell)
 {
 	ft_init_tree(minishell->ast);
 
-	minishell->exit_s = exec_node(minishell->ast, false);
+	minishell->exit_s = ft_exec_node(minishell->ast, false, minishell);
 	ft_clear_ast((&minishell->ast), minishell); // minishell or NULL?
 }
 
@@ -61,24 +61,24 @@ int	main(int argc, char **argv, char **env)
 	{
 		minishell.line = readline(PROMPT);
 		if (!minishell.line)
-			(clean_shell(&minishell),
+			(ft_clean_shell(&minishell),
 				ft_putstr_fd("exit\n", 1), exit(minishell.exit_s));
 		if (minishell.line[0])
 			add_history(minishell.line);
-		minishell.tokens = tokenize(minishell.
+		minishell.tokens = ft_tokenize(minishell.
 		line);
 		if (!minishell.tokens)
 			continue ;
 		new_tokens = minishell.tokens;
-		minishell.tokens = expander(new_tokens, minishell.environ);
+		minishell.tokens = ft_expander(new_tokens, minishell.environ);
 		minishell.ast = ft_parse(&minishell);
 		if (minishell.parse_error.type)
 		{
-			handle_parse_error(&minishell);
+			ft_handle_parse_error(&minishell);
 			continue ;
 		}
-		start_execution(&minishell);
+		ft_start_execution(&minishell);
 	}
-	collector(NULL, true);
-	return (clean_shell(&minishell), minishell.exit_s);
+	ft_collector(NULL, true);
+	return (ft_clean_shell(&minishell), minishell.exit_s);
 }

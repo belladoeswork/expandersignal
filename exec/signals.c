@@ -28,7 +28,7 @@
 //     signal(SIGQUIT, signal_ctrl_slash);
 // }
 // ! UPDATE THE EXITVALUES 
-void signal_ctrl_c(int numsig) 
+void ft_signal_ctrl_c(int numsig) 
 {
     g_global.error_num = 130;
     printf("\nReceived SIGINT and exit status is : %d\n", g_global.error_num);
@@ -38,7 +38,7 @@ void signal_ctrl_c(int numsig)
     (void)numsig; // Unused parameter
 }
 
-void signal_ctrl_d(int numsig) 
+void ft_signal_ctrl_d(int numsig) 
 {
     g_global.error_num = 131;
     printf("\nReceived SIGQUIT and exit status is : %d\n", g_global.error_num);
@@ -46,7 +46,7 @@ void signal_ctrl_d(int numsig)
     (void)numsig; // Unused parameter
 }
 
-void signal_ctrl_slash(int numsig) 
+void ft_signal_ctrl_slash(int numsig) 
 {
     g_global.error_num = 131;
     printf("\nReceived SIGQUIT and exit status is : %d\n", g_global.error_num);
@@ -57,7 +57,7 @@ void signal_ctrl_slash(int numsig)
 }
 
 void signals() {
-    signal(SIGINT, signal_ctrl_c);
-    signal(SIGQUIT, signal_ctrl_slash);
-    signal(SIGTERM, signal_ctrl_d);
+    signal(SIGINT, ft_signal_ctrl_c);
+    signal(SIGQUIT, ft_signal_ctrl_slash);
+    signal(SIGTERM, ft_signal_ctrl_d);
 }

@@ -2,6 +2,8 @@
 #define GLOBALS_H
 
 #include "lumumbash.h"
+
+
 typedef struct s_global
 {
 	int	error_num;

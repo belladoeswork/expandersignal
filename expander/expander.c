@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:18:41 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/24 14:29:49 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/24 23:28:40 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 
-int	check_if_expand(char *str, char **p1)
+int	ft_check_if_expand(char *str, char **p1)
 {
 	int	i;
 
@@ -31,7 +31,7 @@ int	check_if_expand(char *str, char **p1)
 	return (0);
 }
 
-int	check_dollar_word_expand(char **dollar_separated_str, char **p1)
+int	ft_check_dollar_word_expand(char **dollar_separated_str, char **p1)
 {
 	int	i;
 	int	j;
@@ -42,7 +42,7 @@ int	check_dollar_word_expand(char **dollar_separated_str, char **p1)
 	{
 		if (dollar_separated_str[i][0] == '$')
 		{
-			if (check_if_expand(dollar_separated_str[i], p1))
+			if (ft_check_if_expand(dollar_separated_str[i], p1))
 				j++;
 		}
 		i++;
@@ -50,7 +50,7 @@ int	check_dollar_word_expand(char **dollar_separated_str, char **p1)
 	return (j);
 }
 
-int	check_dollar(char *str)
+int	ft_check_dollar(char *str)
 {
 	int	i;
 
@@ -64,7 +64,7 @@ int	check_dollar(char *str)
 	return (0);
 }
 
-t_token	*expander(t_token *tokens, char **env)
+t_token	*ft_expander(t_token *tokens, char **env)
 {
 	t_lists_env	envi;
 	char		**div_by_quote = NULL;
@@ -73,17 +73,17 @@ t_token	*expander(t_token *tokens, char **env)
 	char		**clean = NULL;
 	char		*expanded_tilde;
 
-	envi = split_lists_env(env);
+	envi = ft_split_lists_env(env);
 	head = tokens;
 	while (tokens != NULL)
 	{
 		if(tokens->type == TOKEN_WORD)
 		{
-			expanded_tilde = expand_tilde(tokens->value, envi.p1, envi.p2);
+			expanded_tilde = ft_expand_tilde(tokens->value, envi.p1, envi.p2);
 			if (tokens->type == TOKEN_WORD
-				&& check_dollar(tokens->value))
+				&& ft_check_dollar(tokens->value))
 			{
-				div_by_quote = new_ft_split(expanded_tilde, '\'');
+				div_by_quote = ft_new_ft_split(expanded_tilde, '\'');
 				//div_by_quote = new_ft_split(tokens->value, '\'');
 				//ft_print_double_d(div_by_quote, "expander after div_by_quote", -1);
 				div_by_doll = ft_split_double(div_by_quote, '$');
@@ -91,10 +91,10 @@ t_token	*expander(t_token *tokens, char **env)
 				// if ((check_dollar_word_expand(div_by_doll, envi.p1)) >= 1)
 				// {
 					// todo clean doit ft_double_strdup div_by_doll comme ca je peux free_double_d div by doll a la fin
-					clean = remove_wrong_env_var(div_by_doll, envi.p1);
+					clean = ft_remove_wrong_env_var(div_by_doll, envi.p1);
 					ft_print_double_d(clean, "expander after remove_wrong_env_var", -1);
 					// todo egalement double ft_strdup clean dans expand and assemble
-					tokens->value = expand_assemble(clean, envi.p1, envi.p2);
+					tokens->value = ft_expand_assemble(clean, envi.p1, envi.p2);
 					// ! normally the rest of the code will handle freeing tokens-> value
 				// }
 				// todo use a ft_double_strdup to send div_by_doll
@@ -112,7 +112,7 @@ t_token	*expander(t_token *tokens, char **env)
 		// 		free(expanded_tilde);
 		// }
 	}
-	free_everything(envi, div_by_quote, clean);//, expanded_tile);
+	ft_free_everything(envi, div_by_quote, clean);//, expanded_tile);
 	return (head);
 }
 
