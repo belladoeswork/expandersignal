@@ -3,42 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:36:23 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/24 23:27:26 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/25 20:43:50 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 
-// size_t	ft_strlen(const char *s)
-// {
-// 	size_t	i;
-
-// 	s = (char *)s;
-// 	i = 0;
-// 	while (s[i] != '\0')
-// 	{
-// 		i++;
-// 	}
-// 	return (i);
-// }
-
-// int	ft_strncmp(char *s1, char *s2, size_t n)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (n && s1[i] && s2[i] && (s1[i] == s2[i]))
-// 	{
-// 		++i;
-// 		--n;
-// 	}
-// 	if (n == 0)
-// 		return (0);
-// 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-// }
 
 size_t	ft_strncpy(char *dst, const char *src, size_t size)
 {
@@ -85,8 +58,6 @@ char	*ft_strdup(const char *s1)
 	nouveau[i] = '\0';
 	return (nouveau);
 }
-
-
 
 char	*ft_strchr(const char *s, int c)
 {

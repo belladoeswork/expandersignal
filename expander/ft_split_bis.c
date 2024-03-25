@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_bis.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:51:19 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/24 23:04:05 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/25 20:43:29 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@
 void	ft_free_tmp(char *str, int c , int check)
 {
 	int i;
-	printf("inside ft_free_tmp strlen of \"%s\" is %zu\n", str, ft_strlen(str));
 
 	i = 0;
 	if (check == 1 && str)
@@ -82,7 +81,6 @@ void	ft_free_tmp(char *str, int c , int check)
 		}
 	}
 	free(str);
-	printf("str is freed in ft_free_tmp\n");
 }
 
 int	ft_dollar(char *str)
@@ -90,7 +88,6 @@ int	ft_dollar(char *str)
 	int i;
 	
 	i = 0;
-	printf("inside ft_dollar\n");
 	while(str[i] != '\0')
 	{
 		if (str[i] == '$')
@@ -157,6 +154,7 @@ char	*ft_fill_the_word(char *str, int end, char *lst)
 	int	tmp;
 
 	tmp = end;
+	// what about lst ? how to check the size
 	while (end > 0)
 	{
 		str--;
@@ -172,86 +170,16 @@ char	*ft_fill_the_word(char *str, int end, char *lst)
 	lst[i] = 0;
 	return (lst);
 }
-// char	**fill_lst(char	*str)
-// char	**ft_split_bis(char *str, char c)
-// {
-// 	char	**lst;
-// 	int		i;
-// 	int		j;
-// 	int		reset;
-// 	int		flag;
-
-// 	reset = 0;
-// 	j = 0;
-// 	lst = calloc((ft_countword(str, c) + 1), sizeof(char *));
-// 	if (!str || !lst)
-// 		return (NULL);
-// 	i = 0;
-// 	while (str[i] != '\0')
-// 	{
-// 		flag = 0;
-// 		while ((reset > 0 && str[i] != c) || reset == 0)
-// 		{
-// 			if (str[i] == c)
-// 				flag = 1;
-// 			if ((flag == 1 && isspace(str[i])) || str[i] == 0)
-// 				break ;
-// 			i++;
-// 			reset++;
-// 		}
-// 		lst[j] = calloc(reset + 1, sizeof(char));
-// 		lst[j] = fill_the_word(str, i, (i - reset), lst[j]);
-// 		j++;
-// 		reset = 0;
-// 	}
-// 	lst[j] = NULL;
-// 	return (lst);
-// }
 
 char	**ft_allocate_memory(char *str, char c)
 {
 	char	**lst;
 	//if(dollar_is_)
 	lst = ft_calloc((ft_countword(str, c) + 1), sizeof(char *));
-	printf("amount of words for \"%s\" inside allocate_memory is : %d\n",str, ft_countword(str, c) + 1 );
 	if (!str || !lst)
 		return (NULL);
 	return (lst);
 }
-
-// char	**fill_array(char **lst, char *str, char c)
-// {
-// 	int	j;
-// 	int	reset;
-// 	int	flag;
-
-// 	j = 0;
-// 	reset = 0;
-// 	while (*str != '\0')
-// 	{
-// 		flag = 0;
-// 		while ((reset > 0 && *str != c) || reset == 0)
-// 		{
-// 			if (*str == c)
-// 				flag = 1;
-// 			if (flag == 1 && (isspace(*str))) //|| digit_or_q(str, c))))
-// 				break ;
-// 			else if (digit_or_q(str, c))
-// 			{
-// 				reset++;
-// 				break;
-// 			}
-// 			str++;
-// 			reset++;
-// 		}
-// 		lst[j] = calloc(reset + 1, sizeof(char));
-// 		lst[j] = fill_the_word(str, reset, lst[j]);
-// 		j++;
-// 		reset = 0;
-// 	}
-// 	//free (str);
-// 	return (lst[j] = NULL, lst);
-// }
 
 char    **ft_fill_array(char **lst, char *str, char c, int n)
 {
@@ -268,7 +196,7 @@ char    **ft_fill_array(char **lst, char *str, char c, int n)
         {
             if (*str == c)
                 flag = 1;
-            if (flag == 1 && (ft_isspace(*str))) //|| digit_or_q(str, c))))
+            if ((flag == 1 && (ft_isspace(*str))) || (*str == 0))
                 break ;
             else if (flag == 1 && ft_digit_or_q(str, c))
             {
@@ -279,21 +207,13 @@ char    **ft_fill_array(char **lst, char *str, char c, int n)
             str++;
             reset++;
         }
-        lst[j] = ft_calloc(reset + 1, sizeof(char));
+        lst[j] = ft_calloc(reset + 1, sizeof(char)); 
         lst[j] = ft_fill_the_word(str, reset, lst[j]);
         j++;
         if (j == n - 1)
           break;
         reset = 0;
     }
-	//int i = 0;
-	// while(*str != 0)
-	// {
-    // 	lst[j][i] = *str;
-	// 	i++;
-	// }
-    // j++;
-    //free (str);
     return (lst[j] = NULL, lst);
 }
 
@@ -319,12 +239,6 @@ char	**ft_split_bis(char *str, char c)
 	if (!lst)
 		return (NULL);
 	lst = ft_fill_array(lst, tmp, c, ft_countword(str, c) + 1);
-	//printf("ft_strlen_double of lst is : %d\n", ft_strlen_double(lst));
-	ft_print_double_d(lst, "ft_split_bis", -1);
 	free(tmp);
 	return (lst);
 }
-
-// 6 lines out of ft_split_bis
-// idea of doing calloc inside fill the word
-// 1 line in ft countword

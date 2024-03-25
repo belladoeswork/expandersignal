@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_assemble.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:47:05 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/24 23:00:34 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/25 20:39:23 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,51 +106,15 @@ char	*ft_indeed_expand(char *to_expand, char *b_equal[], char **a_equal)
 		char *str = ft_itoa(errno);
 		return(str);
 	}
-	// if (isdigit(to_expand[1]))
-	// {
-	// 	return(NULL);
-	// }
+
 	while (b_equal[k] != NULL)
 	{
 		if (ft_strncmp(to_expand + 1, b_equal[k], ft_strlen(b_equal[k])) == 0)
 			break ;
 		k++;
 	}
-	//free(to_expand);
 	return (ft_strdup(a_equal[k]));
 }
-
-// char	*remove_single_quote_2(char *str)
-// {
-// 	int		i;
-// 	int		j;
-// 	int		n;
-// 	char	*updated_str;
-
-// 	n = 0;
-// 	i = 0;
-// 	j = 0;
-// 	while (str[i] != '\0')
-// 	{
-// 		if (str[i] == '\'')
-// 			n++;
-// 		i++;
-// 	}
-// 	updated_str = calloc((ft_strlen(str) - n + 1), sizeof(char));
-// 	if (!updated_str)
-// 		return (NULL);
-// 	while (str[i] != '\0')
-// 	{
-// 		if (str[i] != '\'')
-// 		{
-// 			updated_str[j] = str[i];
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	updated_str[j] = '\0';
-// 	return (updated_str);
-// }
 
 char	*ft_rem_quote(char *str)
 {
@@ -184,7 +148,6 @@ char	*ft_expand_assemble(char **str, char **b_equal, char **a_equal)
 	while (str[n] != NULL)
 		n++;
 	expanded_str = ft_calloc(n + 1, sizeof(char *));
-	printf("n inside expand_assemble is : %d\n", n);
 	if (!expanded_str)
 		return (NULL);
 	i = 0;
@@ -200,6 +163,3 @@ char	*ft_expand_assemble(char **str, char **b_equal, char **a_equal)
 	assembled_expanded_str = ft_assemble(expanded_str);
 	return (noquotes = ft_rem_quote(assembled_expanded_str), noquotes);
 }
-
-// 2 lines out of expand_assemble
-// 3 lines out of remove_single_quote 2

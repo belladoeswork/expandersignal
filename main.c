@@ -31,8 +31,6 @@ static void	ft_start_execution(t_minishell *minishell)
 //     printf("\033[0m"); // Reset color to default
 // }
 
-#include <stdio.h>
-
 void print_lumumbash() {
     printf("\033[0;31m"); // Set text color to red
     printf(" __       __    __  .___  ___.  __    __  .___  ___. .______        ___           _______. __    __  \n");
@@ -46,23 +44,22 @@ void print_lumumbash() {
     printf("\033[0m"); // Reset text color
 }
 
-
-
 int	main(int argc, char **argv, char **env)
 {
 	((void)argc, (void)argv);
     t_minishell minishell;
 	t_token		*new_tokens;
 
-	print_lumumbash();
+	//print_lumumbash();
 	ft_signals();
 	ft_init_minishell(&minishell, env);
 	while (1)
 	{
 		minishell.line = readline(PROMPT);
 		if (!minishell.line)
-			(ft_clean_shell(&minishell),
-				ft_putstr_fd("exit\n", 1), exit(minishell.exit_s));
+			break;
+			//(ft_clean_shell(&minishell),
+				//ft_putstr_fd("exit\n", 1), exit(minishell.exit_s));
 		if (minishell.line[0])
 			add_history(minishell.line);
 		minishell.tokens = ft_tokenize(minishell.
@@ -79,6 +76,12 @@ int	main(int argc, char **argv, char **env)
 		}
 		ft_start_execution(&minishell);
 	}
+	//ft_putstr_fd("exit\n", 1);
+	//exit(minishell.exit_s));
+	ft_free_double_d(minishell.environ);
 	ft_collector(NULL, true);
 	return (ft_clean_shell(&minishell), minishell.exit_s);
 }
+
+
+// valgrind --leak-check=full --track-origins=yes ./lumumbash
