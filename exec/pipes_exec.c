@@ -6,7 +6,6 @@ int ft_exec_child(char **split_args) {
 
     pid = fork();
     if (pid == 0) {
-        // Child process
         char *full_path = ft_find_command_path(split_args[0]);
         if (full_path == NULL) {
             fprintf(stderr, "Command '%s' not found\n", split_args[0]);
@@ -15,8 +14,10 @@ int ft_exec_child(char **split_args) {
         char *const args[] = {full_path, split_args[1], NULL};
         if (execve(full_path, args, NULL) == -1) {
             perror("execve");
+            free(full_path);
             exit(EXIT_FAILURE);
         }
+        free(full_path);
     } else if (pid < 0) {
         perror("fork");
         return -1; 

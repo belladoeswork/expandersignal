@@ -35,6 +35,7 @@ static t_node	*ft_get_simple_cmd(t_minishell *minishell)
         {
             if (!ft_get_redir_list(&(node->redir_list), minishell))
             {
+				free(node->split_args); // ADDED TODAY
                 free(node->args);
                 free(node);
                 return (NULL);

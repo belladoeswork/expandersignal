@@ -13,15 +13,18 @@ int	ft_exec_builtin(char **args, t_minishell *minishell)
 	printf("exec_builtin: Executing command - %s\n", args[0]);
 	if (!ft_strcmp(args[0], "echo"))
 		return (ft_echo(args + 1));
-	// if (!ft_strcmp(args[0], "cd"))
-	// 	return (ft_cd(args[1]));
+	if (!ft_strcmp(args[0], "cd"))
+		return (ft_cd(args + 1));
 	if (!ft_strcmp(args[0], "pwd"))
 		return (ft_pwd());
 	if (!ft_strcmp(args[0], "export"))
 		return (ft_export(args, &minishell));
 	if (!ft_strcmp(args[0], "unset"))
 		return (ft_unset(args, &minishell));
-	ft_exit(args, minishell);
+	if (!ft_strcmp(args[0], "exit")) {
+        ft_exit(args, minishell);
+        return 0;
+    }
 	return (GENERAL);
 }
 

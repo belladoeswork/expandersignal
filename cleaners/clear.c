@@ -18,14 +18,29 @@ void	ft_clear_redir_list(t_redir_node **list)
 	*list = NULL;
 }
 
+// void	ft_clear_cmd_node(t_node *node)
+// {
+// 	if (!node)
+// 		return ;
+// 	ft_clear_redir_list(&(node->redir_list));
+// 	free(node->args);
+// 	ft_free_char2(node->expanded_args); // added after expander??
+// }
+
 void	ft_clear_cmd_node(t_node *node)
 {
-	if (!node)
-		return ;
-	ft_clear_redir_list(&(node->redir_list));
-	free(node->args);
-	ft_free_char2(node->expanded_args); // added after expander??
+    if (!node)
+        return ;
+    ft_clear_redir_list(&(node->redir_list));
+    if (node->split_args) {
+        for (int i = 0; node->split_args[i] != NULL; i++) {
+            free(node->split_args[i]);
+        }
+        free(node->split_args);
+    }
+    ft_free_char2(node->expanded_args); // added after expander??
 }
+
 
 void	ft_recursive_clear_ast(t_node *node)
 {
