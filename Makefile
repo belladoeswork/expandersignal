@@ -7,9 +7,9 @@ CFLAGS		:= -Wall -Werror -Wextra
 BUILTINS	:=	builtins/echo.c \
 				builtins/exit.c \
 				builtins/pwd.c \
-				builtins/env.c \
 				builtins/export.c \
 				builtins/unset.c \
+#				builtins/env.c \
 
 CLEANERS	:=	cleaners/clean.c \
 				cleaners/free.c \

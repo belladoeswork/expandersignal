@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:18:41 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/24 23:28:40 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/24 20:58:17 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,4 +123,9 @@ t_token	*ft_expander(t_token *tokens, char **env)
 // rest of minishell :
 
 
-// fixing signals, norminette and leaks
+// unset
+// fix the signal
+// leaks inside expander
+// leaks inside export
+// norminette
+// 
