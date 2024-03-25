@@ -40,7 +40,8 @@ EXPANDER    :=  expander/expander.c \
                 expander/expand_tilde.c \
 
 
-HELP		:=  help/helpers.c \
+HELP		:=  help/echo_helpers.c \
+				help/env_helpers.c \
 				help/exphelp.c \
 				help/libfthelp.c \
 				help/tk_helpers.c \
@@ -51,6 +52,11 @@ PARSER		:=	parser/nodes.c \
 				parser/parser_helpers.c \
 				parser/parser_utils.c \
 				parser/parser.c \
+
+MINILIBFT	:=	minilibft/comp.c \
+				minilibft/issomething.c \
+				minilibft/str.c \
+
 
 TOKENIZER	:=	tokenizer/tokenizer.c \
 				tokenizer/handlers.c \

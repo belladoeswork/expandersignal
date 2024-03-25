@@ -15,7 +15,7 @@ void	ft_clear_token_list(t_token **list)
 			current_node->value = NULL;
 		}
 		free(current_node);
-		current_node = NULL;
+		// current_node = NULL;
 		current_node = next;
 	}
 	*list = NULL;

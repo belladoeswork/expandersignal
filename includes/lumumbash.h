@@ -30,6 +30,12 @@ typedef enum e_ast_direction
 	TD_RIGHT
 }		t_ast_direction;
 
+
+//minilift
+bool ft_isnumber(char *s);
+char *ft_strcat(char *dest, char *src);
+char *ft_strcpy(char *dest, char *src);
+
 // dup errors
 
 int ft_safe_dup2(int oldfd, int newfd);

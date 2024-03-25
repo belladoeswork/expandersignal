@@ -22,7 +22,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (!s1 || !s2)
 		return (NULL);
 	total_length = strlen(s1) + strlen(s2) + 1;
-	joined = calloc(total_length, sizeof(char));
+	joined = ft_calloc(total_length, sizeof(char));
 	if (!joined)
 		return (NULL);
 	i = 0;
@@ -50,7 +50,7 @@ char	*ft_strjoin_with(char const *s1, char const *s2, char c)
 	if (!c || !strlen(s1) || !strlen(s2))
 		return (ft_strjoin(s1, s2));
 	total_length = strlen(s1) + strlen(s2) + 1 + 1;
-	joined = calloc(total_length, sizeof(char));
+	joined = ft_calloc(total_length, sizeof(char));
 	if (!joined)
 		return (NULL);
 	i = 0;
