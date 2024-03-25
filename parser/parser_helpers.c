@@ -2,40 +2,48 @@
 
 static t_node	*ft_get_simple_cmd(t_minishell *minishell)
 {
-	t_node	*node;
+    t_node	*node;
+    int i = 0;
 
-	if (minishell->parse_error.type)
-		return (NULL);
-	node = ft_new_node(NODE_CMD);
-	if (!node)
-	{
-		ft_set_parse_error(MALLOC_ERROR);
-		return (NULL);
-	}
-	while (minishell->current_token
-		&& (minishell->current_token->type == TOKEN_WORD
-			|| ft_is_redir(minishell->current_token->type)))
-	{
-		if (minishell->current_token->type == TOKEN_WORD)
-		{
-			if (!ft_join_args(&(node->args), minishell))
-			{
-				ft_clear_cmd_node(node);
-				ft_set_parse_error(MALLOC_ERROR);
-				return (NULL);
-			}
-		}
-		else if (ft_is_redir(minishell->current_token->type))
-		{
-			if (!ft_get_redir_list(&(node->redir_list), minishell))
-			{
-				free(node->args);
-				free(node);
-				return (NULL);
-			}
-		}
-	}
-	return (node);
+    if (minishell->parse_error.type)
+        return (NULL);
+    node = ft_new_node(NODE_CMD);
+    if (!node)
+    {
+        ft_set_parse_error(MALLOC_ERROR);
+        return (NULL);
+    }
+
+	node->split_args = malloc(MAX_NUM_ARGS * sizeof(char *));
+    if (!node->split_args)
+    {
+        ft_set_parse_error(MALLOC_ERROR);
+        free(node);
+        return (NULL);
+    }
+
+    while (minishell->current_token
+        && (minishell->current_token->type == TOKEN_WORD
+            || ft_is_redir(minishell->current_token->type)))
+    {
+        if (minishell->current_token->type == TOKEN_WORD)
+        {
+            node->split_args[i] = minishell->current_token->value;
+            i++;
+        }
+        else if (ft_is_redir(minishell->current_token->type))
+        {
+            if (!ft_get_redir_list(&(node->redir_list), minishell))
+            {
+                free(node->args);
+                free(node);
+                return (NULL);
+            }
+        }
+        minishell->current_token = minishell->current_token->next;
+    }
+    node->split_args[i] = NULL; 
+    return (node);
 }
 
 t_node	*ft_term(t_minishell *minishell)

@@ -86,7 +86,7 @@ int	ft_append_word(char **line_ptr, t_token **token_list)
 			word[j++] = line[i];
 		}
 		else if (!in_quotes && (line[i] == '<' || line[i] == '>'
-				|| line[i] == '|' || line[i] == ';'))
+				|| line[i] == '|' || line[i] == ';' || line[i] == ' '))
 		{
 			break ;
 		}

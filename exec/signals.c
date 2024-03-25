@@ -56,7 +56,7 @@ void ft_signal_ctrl_slash(int numsig)
     (void)numsig; // Unused parameter
 }
 
-void signals() {
+void ft_signals() {
     signal(SIGINT, ft_signal_ctrl_c);
     signal(SIGQUIT, ft_signal_ctrl_slash);
     signal(SIGTERM, ft_signal_ctrl_d);

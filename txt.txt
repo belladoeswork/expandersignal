@@ -1,0 +1,6 @@
+seg fault for command $USER > [1]    64638 segmentation fault  ./lumumbash
+echo $VAR > does not return anything
+check exit function : seg faulting at line 	exit(exit_s); > Exception has occurred: Exception
+EXC_BAD_ACCESS (code=1, address=0x20)
+
+
