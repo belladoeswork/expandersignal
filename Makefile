@@ -10,6 +10,7 @@ BUILTINS	:=	builtins/echo.c \
 				builtins/export.c \
 				builtins/unset.c \
 				builtins/env.c \
+				builtins/cd.c \
 
 CLEANERS	:=	cleaners/clean.c \
 				cleaners/free.c \
@@ -24,6 +25,7 @@ EXEC		:=	exec/checks.c \
 				exec/pipes_exec.c \
 				exec/tree.c \
 				exec/signals.c \
+				exec/dup_error_handling.c \
 
 EXPANDER    :=  expander/expander.c \
                 expander/create_env_lists.c \

@@ -18,23 +18,31 @@ static int	ft_exec_pipeline(t_node *tree, t_minishell *minishell)
 	pid_left = fork();
 	if (pid_left == 0)
 	{
-		close(pfds[0]);
-		dup2(pfds[1], STDOUT_FILENO);
-		close(pfds[1]);
+		// close(pfds[0]);
+		// dup2(pfds[1], STDOUT_FILENO);
+		// close(pfds[1]);
+		ft_safe_close(pfds[0]);
+    ft_safe_dup2(pfds[1], STDOUT_FILENO);
+    ft_safe_close(pfds[1]);
 		ft_exec_node(tree->left, true, minishell);
 		exit(EXIT_FAILURE);
 	}
 	pid_right = fork();
 	if (pid_right == 0)
 	{
-		close(pfds[1]);
-		dup2(pfds[0], STDIN_FILENO);
-		close(pfds[0]);
+		// close(pfds[1]);
+		// dup2(pfds[0], STDIN_FILENO);
+		// close(pfds[0]);
+		ft_safe_close(pfds[1]);
+    ft_safe_dup2(pfds[0], STDIN_FILENO);
+    ft_safe_close(pfds[0]);
 		ft_exec_node(tree->right, true, minishell);
 		exit(EXIT_FAILURE);
 	}
-	close(pfds[0]);
-	close(pfds[1]);
+	// close(pfds[0]);
+	// close(pfds[1]);
+	ft_safe_close(pfds[0]);
+    ft_safe_close(pfds[1]);
 	waitpid(pid_left, &status, 0);
 	waitpid(pid_right, &status, 0);
 	return (ft_get_exit_status(status));

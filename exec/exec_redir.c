@@ -10,7 +10,10 @@ int	ft_out(t_redir_node *redir_list, int *status)
 				redir_list->value});
 		return (*status);
 	}
-	fd = open(&redir_list->value[0], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	// fd = open(&redir_list->value[0], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	fd = ft_safe_open(&redir_list->value[0], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    ft_safe_dup2(fd, STDOUT_FILENO);
+    ft_safe_close(fd);
 	if (fd == -1)
 	{
 		*status = ft_error_msg(ft_check_write(&redir_list->value[0]));
@@ -32,7 +35,11 @@ int	ft_in(t_redir_node *redir_list, int *status)
 				redir_list->value});
 		return (*status);
 	}
-	fd = open(&redir_list->value[0], O_RDONLY);
+	// fd = open(&redir_list->value[0], O_RDONLY);
+	fd = ft_safe_open(&redir_list->value[0], O_RDONLY, 0);
+	ft_safe_dup2(fd, STDIN_FILENO);
+    ft_safe_close(fd);
+
 	if (fd == -1)
 	{
 		*status = ft_error_msg(ft_check_read(&redir_list->value[0]));
@@ -55,7 +62,12 @@ int	ft_append(t_redir_node *redir_list, int *status)
 				redir_list->value});
 		return (*status);
 	}
-	fd = open(&redir_list->value[0], O_CREAT | O_WRONLY | O_APPEND, 0644);
+	// fd = open(&redir_list->value[0], O_CREAT | O_WRONLY | O_APPEND, 0644);
+	fd = ft_safe_open(&redir_list->value[0], O_CREAT | O_WRONLY | O_APPEND, 0644);
+
+    ft_safe_dup2(fd, STDOUT_FILENO);
+    ft_safe_close(fd);
+
 	if (fd == -1)
 	{
 		*status = ft_error_msg(ft_check_write(&redir_list->value[0]));

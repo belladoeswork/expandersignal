@@ -15,6 +15,7 @@
 # include <stdbool.h>
 # include <stdint.h>
 # include <stdio.h>
+#include <errno.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/wait.h>
@@ -28,6 +29,13 @@ typedef enum e_ast_direction
 	TD_LEFT,
 	TD_RIGHT
 }		t_ast_direction;
+
+// dup errors
+
+int ft_safe_dup2(int oldfd, int newfd);
+int ft_safe_close(int fd);
+int ft_safe_open(const char *pathname, int flags, mode_t mode);
+
 // builtins
 int		ft_echo(char **args);
 void	ft_exit(char **args, t_minishell *minishell);
@@ -35,17 +43,16 @@ int		ft_pwd(void);
 
 char **ft_split_path(char *path);
 char *ft_find_command_path(const char *command);
-
-
+int ft_cd(char **args);
 
 // void	ft_init_envlst(t_minishell *minishell);
-char *ft_get_env_val(const char *key, char **environ);
+// char *ft_get_env_val(const char *key, char **environ);
 // int ft_env(t_minishell *minishell);
 int ft_env(char **environ);
 // int		ft_unset(char **args, t_minishell *minishell);
 int	ft_unset(char **args, t_minishell **minishell);
-void	ft_update_envlst(char *key, char *value, bool create,
-			t_minishell *minishell);
+// void	ft_update_envlst(char *key, char *value, bool create,
+// 			t_minishell *minishell);
 // int		ft_export(char **argv, t_minishell *minishell);
 int	ft_export(char **argv, t_minishell **minishell);
 int 	ft_strlen_double_pers(char **str);

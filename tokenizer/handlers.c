@@ -63,6 +63,8 @@ int	ft_append_word(char **line_ptr, t_token **token_list)
 	line = *line_ptr;
 	in_quotes = 0;
 	word = malloc(ft_strlen(line) + 1);
+	if (!word)
+        return (0);
 	j = 0;
 	while (line[i])
 	{
@@ -98,10 +100,15 @@ int	ft_append_word(char **line_ptr, t_token **token_list)
 	}
 	word[j] = '\0';
 	if (!ft_token_list_add_back(token_list, ft_new_token(word, TOKEN_WORD)))
-		return (0);
+		{
+        free(word);
+        return (0);
+    }
 	*line_ptr += i;
 	return (1);
 }
+
+
 
 t_token	*ft_tokenization_handler(char *line)
 {
