@@ -1,14 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pwd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/25 20:27:13 by tbella-n          #+#    #+#             */
+/*   Updated: 2024/03/25 20:27:14 by tbella-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lumumbash.h"
 
 int	ft_pwd(void)
 {
-	char *cwd;
+	char	*cwd;
 
 	cwd = NULL;
-	cwd = getcwd(cwd, 0);
+	// cwd = getcwd(cwd, 0);
+	cwd = getcwd(NULL, 0);
 	if (!cwd)
 		return (1);
 	ft_putstr_fd(cwd, 1);
 	ft_putstr_fd("\n", 1);
+	free(cwd);
 	return (0);
 }
