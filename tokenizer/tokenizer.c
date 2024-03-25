@@ -1,17 +1,5 @@
 #include "lumumbash.h"
 
-// t_token *new_token(char *value, t_token_type type)
-// {
-//     t_token *new_token = (t_token *)malloc(sizeof(t_token));
-//     if (!new_token) {
-//         return (NULL);
-//     }
-//     new_token->value = value;
-//     new_token->type = type;
-//     return (new_token);
-// }
-
-// added today march 19
 t_token	*ft_new_token(char *value, t_token_type type)
 {
 	t_token	*new_token;
