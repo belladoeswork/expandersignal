@@ -41,38 +41,30 @@ static void	ft_unset_helper(t_minishell *minishell, char *key)
 	int	i;
 	int j;
 	char **str;
+	t_lists_env	envi;
 
-	printf("inside ft_unset_helper\n");
-	printf("this is the key : %s\n", key);
 	i = 0;
 	j = 0;
-	printf("minishell environ [%d] = %s\n", i, minishell->environ[i]);
 	str = calloc(ft_strlen_double_pers(minishell->environ), sizeof(char *));
-	printf("ft_strlen of minishell environ is : %d\n", ft_strlen_double_pers(minishell->environ));
-	//current = minishell->envlst;
+	envi = ft_split_lists_env(minishell->environ);
 	while (minishell->environ[j] != NULL)
 	{
-		if (ft_strcmp(key, minishell->environ[j]) == 0)
+		if (ft_strcmp(key, envi.p1[j]) == 0)
 		{
-			printf("this is the key : %s and this is the minishell env var : %s\n", key, minishell->environ[j]);
 			j++;
 		}
-		str[i] = ft_strdup(minishell->environ[j]);
+		if (minishell->environ[j] != NULL)
+			str[i] = ft_strdup(minishell->environ[j]);
+		else
+			break;
 		i++;
 		j++;
 	}
 	str[i] = NULL;
-	ft_print_double_d(str, "unset helper", -1);
+	ft_free_double_d(minishell->environ);
 	minishell->environ = str;
-	// int i;
-
-	// i = 0;
-	// char **str;
-	// str = calloc(ft_strlen_double_pers(minishell), sizeof(char *));
-	// while(minishell->environ[i])
-	// {
-
-	// }
+	ft_free_double_d(envi.p1);
+	ft_free_double_d(envi.p2);
 }
 
 int	ft_unset(char **args, t_minishell **minishell)

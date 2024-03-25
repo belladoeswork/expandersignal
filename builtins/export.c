@@ -95,6 +95,10 @@ static int	ft_export_error_msg(char *identifier)
 // 	}
 // 	return (exit_s);
 // }
+// char	**ft_strdup(char **str)
+// {
+	
+// }
 
 int 	ft_strlen_double_pers(char **str)
 {
@@ -120,7 +124,6 @@ void	ft_modif_env_var(t_lists_env envi, char *key, char *value, t_minishell *min
 	j = 0;
 	k = 0;
 	new_environ = calloc(ft_strlen_double_pers(minishell->environ) + 2, sizeof(char *));
-	printf("inside ft_modif_env_var\n");
 	key_update = calloc(ft_strlen(key) + 2, sizeof(char));
 	if(!key_update)
 		exit(EXIT_FAILURE);
@@ -132,14 +135,12 @@ void	ft_modif_env_var(t_lists_env envi, char *key, char *value, t_minishell *min
 	key_update[j] = '=';
 	j++;
 	key_update[j] = 0;
-	printf("key_update is : %s\n", key_update);
 	while(envi.p1[i] != NULL)
 	{
 		if (ft_strncmp(key, envi.p1[i], ft_strlen(envi.p1[i])) == 0)
 			break;
 		i++;
 	}
-	printf("i is : %d, key_update is : %s, value is %s\n", i, key_update, value);
 	while(minishell->environ[k] != NULL)
 	{
 		new_environ[k] = ft_strdup(minishell->environ[k]);
@@ -148,10 +149,9 @@ void	ft_modif_env_var(t_lists_env envi, char *key, char *value, t_minishell *min
 	new_environ[k] = ft_strjoin(key_update, value);
 	k++;
 	new_environ[k] = NULL;
-	//free(minishell->environ);
-	minishell->environ= new_environ;
-	printf("minishell->environ[%d] = %s\n", i, minishell->environ[i]);
-	ft_print_double_d(minishell->environ, "export end", -1);
+	k = 0;
+    minishell->environ = new_environ;
+	free(key_update);
 }
 
 void	ft_add_env_var(char *key, char *value, int true_or_false, t_minishell *minishell)
@@ -169,60 +169,71 @@ void	ft_add_env_var(char *key, char *value, int true_or_false, t_minishell *mini
 	key_update = calloc(ft_strlen(key) + 2, sizeof(char));
 	if(!key_update)
 		exit(EXIT_FAILURE);
-// todo if true_or_false == 1
-// todo if true_or_false == 0
 	if(true_or_false == 1)
 	{
+		char *p1;
+		char *p2;
 		while(key[j] != 0)
 		{
 			key_update[j] = key[j];
 			j++;
 		}
-		key[j] = '=';
+		key_update[j] = '=';
 		j++;
-		key[j] = 0;
-		str = calloc(ft_strlen_double_pers(minishell->environ) + 2, sizeof(char *));
+		key_update[j] = 0;
+		str = calloc(ft_strlen_double_pers(minishell->environ) + 1, sizeof(char *));
 		if(!str)
 			exit(EXIT_FAILURE);
+		p1 = ft_strdup(key_update);
+		p2 = ft_strdup(value);
 		while(minishell->environ[i] != NULL)
 		{
+			if(ft_strncmp(list_env.p1[i], key, ft_strlen(key)) == 0)
+			{
+				str[i] = ft_strjoin(p1, p2);
+				if(str[i + 1] != NULL)
+					i++;
+				else
+					break;
+			}
 			str[i] = ft_strdup(minishell->environ[i]);
 			i++;
 		}
- 		str[i] = ft_strjoin(ft_strdup(key_update), ft_strdup(value)) ;
-		// strjoin = VAR=therese
 		i++;
 		str[i] = NULL;
+		ft_free_double_d(minishell->environ);
+		free(p1);
+		free(p2);
 		minishell->environ = str;
 	}
 	else if (true_or_false == 0)
 	{
 		ft_modif_env_var(list_env, key, value, minishell);
 	}
-	// todo free list_env
-	// todo free key_update
+	ft_free_double_d(list_env.p1);
+	ft_free_double_d(list_env.p2);
+	free(key_update);
 }
 
-
-// je vais envoyer la liste faite dans l'expander dans minishell struct; // ou alors j'utilise juste les deux fonctions
-// ensuite dans export je vais envoyer mon minishell reference
-// dedans je check avec ft_strcmp si la valeur existe deja
-// si elle existe je vais juste aller a l'index de la env var qui existe et je vais la remplacer par ft_strjoin de la list_splittee part1 a l'index et la part d'apres quon evoie a export
-// si elle n'existe pas je vais juste dupliquer la liste et rajouter la nouvelle variable
 int ft_key_check(char *key, t_minishell *minishell)
 {
 	int i;
-	char **env = minishell->environ;
+	t_lists_env	envi;
+	envi = ft_split_lists_env(minishell->environ);
 
 	i = 0;
-	while (env[i] != NULL)
+	while (envi.p1[i] != NULL)
 	{
-		if (ft_strcmp(key, env[i] + 1) == 0)
+		if (ft_strcmp(key, envi.p1[i]) == 0)
 		{
+			ft_free_double_d(envi.p1);
+			ft_free_double_d(envi.p2);
 			return (1);
 		}
 		i++;
 	}
+	ft_free_double_d(envi.p1);
+	ft_free_double_d(envi.p2);
 	return (0);
 }
 
@@ -234,40 +245,27 @@ int	ft_export(char **argv, t_minishell **minishell)
 
 	exit_s = 0;
 	i = 1;
-	printf("inside export\n");
-	// ! I just do not understand that
 	if (!argv[1])
 		return (1);
-		//return (ft_export_list(minishell), 0);
-	// !
 	while (argv[i])
 	{
 		if (ft_keycheck(argv[i]) == 0)
 		{
 			exit_s = ft_export_error_msg(argv[i]);
-			//printf("ft_keycheck is not passed\n");
 		}
 		else
 		{
 			key = ft_extract_key(argv[i]);
-			//printf("this is the key : %s\n", key);
 			if (!ft_key_check(key, *minishell))
 			{
-				//printf("key exists\n");
 				ft_add_env_var(key, ft_extract_value(argv[i]), 0, *minishell);
 			}
 			else
 			{
-				//printf("key did not exist yet\n");
 				ft_add_env_var(key, ft_extract_value(argv[i]), 1, *minishell);
 			}
 		}
 		i++;
 	}
-
 	return (exit_s);
 }
-
-// todo free everything
-// todo norminette
-// todo make sure to do for unexistant var

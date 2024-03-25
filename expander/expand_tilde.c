@@ -32,36 +32,28 @@ char *ft_expand_tilde(char *str, char **p1, char **p2)
     n = 0;
     k = 0;
     l = 0;
-    printf("inside str_tilde\n");
     while(str[i] != 0)
     {
         if(str[i] == '~' && (ft_isspace(str[i + 1]) || str[i + 1] == ':' || str[i + 1] == '/' || str[i + 1] == 0))
             n++;
         i++;
     }
-    printf("str inside str_tilde is : %s\n", str);
-    printf("n inside str_tilde is : %d\n", n);
     if (n == 0)
     {    
-        printf("n is 0\n");
         return(str);
     }
     if (n > 0)
     {
         str_tilde = ft_search(p1, p2, "HOME");
-        printf("str_tilde is : %s\n", str_tilde);
         str_expanded = ft_calloc ((ft_strlen(str_tilde) * n) + ft_strlen(str) - n + 1, sizeof(char));
         int tmp = (ft_strlen(str_tilde) * n) + ft_strlen(str) - n;
-        printf("tmp is %d\n", tmp);
-        while(l < tmp) //(ft_strlen(str_tilde) * n) + ft_strlen(str) - n)
+        while(l < tmp)
         {
             if (str[j] == '~' && (ft_isspace(str[j + 1]) || str[j + 1] == ':' || str[j + 1] == '/' || str[j + 1] == 0))
             {
                 k = 0;
-                printf("inside if statement tilde expand_tilde\n");
                 while(str_tilde[k] != 0)
                 {
-                    printf("inside while loop tilde expand_tilde\n");
                     str_expanded[l] = str_tilde[k];
                     l++;
                     k++;
@@ -73,12 +65,10 @@ char *ft_expand_tilde(char *str, char **p1, char **p2)
             l++;
         }
         free(str_tilde);
-        printf("str_expanded before returning in expand_tilde : %s\n", str_expanded);
         return (str_expanded);
     }
     else
     {
-        printf("else was triggered\n");
-        return (str);
+        return (ft_strdup(str));
     }
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tester_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:53:25 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/24 23:10:19 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/25 17:00:33 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ char	*ft_strcat(char *dest, char *src)
 	return (dest);
 }
 
-void	ft_free_everything(t_lists_env envi,char **div_by_quote,char **clean)
+void	ft_free_everything(t_lists_env envi,char **div_by_quote,char **clean )//, char *expanded_tilde)
 {
-	//free(expanded_tile);
+	//free(expanded_tilde);
 	ft_free_double_d(div_by_quote);
 	ft_free_double_d(clean);
 	ft_free_double_d(envi.p1);

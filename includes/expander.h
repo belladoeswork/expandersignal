@@ -45,8 +45,8 @@ char *ft_expand_tilde(char *str, char **p1, char **p2);
 void		ft_print_double_d(char **str, char *from, int n);
 int			ft_count_number_of_words(char ***triple_d_str);
 char		*ft_strcat(char *dest, char *src);
+// void	ft_free_everything(t_lists_env envi,char **div_by_quote,char **clean, char *expanded_tilde);
 void	ft_free_everything(t_lists_env envi,char **div_by_quote,char **clean);
-
 // expand_assemble.c
 char		*ft_expand_assemble(char **str, char **b_equal, char **a_equal);
 

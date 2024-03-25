@@ -6,7 +6,7 @@
 /*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:18:41 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/24 20:58:17 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/25 17:44:47 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,24 +87,30 @@ t_token	*ft_expander(t_token *tokens, char **env)
 				//div_by_quote = new_ft_split(tokens->value, '\'');
 				//ft_print_double_d(div_by_quote, "expander after div_by_quote", -1);
 				div_by_doll = ft_split_double(div_by_quote, '$');
-				ft_print_double_d(div_by_doll, "expander after div_by_doll", -1);
+				//ft_print_double_d(div_by_doll, "expander after div_by_doll", -1);
 				// if ((check_dollar_word_expand(div_by_doll, envi.p1)) >= 1)
 				// {
+					ft_free_double_d(div_by_quote);
 					// todo clean doit ft_double_strdup div_by_doll comme ca je peux free_double_d div by doll a la fin
 					clean = ft_remove_wrong_env_var(div_by_doll, envi.p1);
-					ft_print_double_d(clean, "expander after remove_wrong_env_var", -1);
+					//ft_print_double_d(clean, "expander after remove_wrong_env_var", -1);
 					// todo egalement double ft_strdup clean dans expand and assemble
+					//free(tokens->value);
 					tokens->value = ft_expand_assemble(clean, envi.p1, envi.p2);
+					ft_free_double_d(clean);
 					// ! normally the rest of the code will handle freeing tokens-> value
 				// }
 				// todo use a ft_double_strdup to send div_by_doll
 				// todo free div_by_doll
 			}
 			else
-				tokens->value = expanded_tilde;
-			if (ft_strncmp(tokens->value, expanded_tilde, ft_strlen(expanded_tilde) != 0))
-				free(expanded_tilde);
+			{
+				//free(tokens->value);
+				tokens->value = ft_strdup(expanded_tilde);
+			}
+			//if (ft_strncmp(tokens->value, expanded_tilde, ft_strlen(expanded_tilde) != 0))
 		}
+		free(expanded_tilde);
 		tokens = tokens->next;
 		// if (expanded_tilde)
 		// {
@@ -112,7 +118,10 @@ t_token	*ft_expander(t_token *tokens, char **env)
 		// 		free(expanded_tilde);
 		// }
 	}
-	ft_free_everything(envi, div_by_quote, clean);//, expanded_tile);
+	//free(expanded_tilde);
+	ft_free_double_d(envi.p1);
+	ft_free_double_d(envi.p2);
+	//ft_free_everything(envi, div_by_quote, clean);//, expanded_tilde);
 	return (head);
 }
 
@@ -123,9 +132,12 @@ t_token	*ft_expander(t_token *tokens, char **env)
 // rest of minishell :
 
 
-// unset
-// fix the signal
-// leaks inside expander
-// leaks inside export
-// norminette
-// 
+// leaks inside expander : 1 error left
+// leaks inside export : should be easy to handle
+// norminette : afternoon, evening
+// fix le bail comme quoi
+
+
+// run minishell inside minishell
+// signals inside minishell inside minishell
+// exit status

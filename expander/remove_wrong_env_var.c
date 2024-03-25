@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   remove_wrong_env_var.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 21:51:52 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/24 23:09:52 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/25 20:42:59 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char	**ft_remove_wrong_env_var(char **str, char **before_equal)
 		i++;
 	}
 	tmp = i - j + 1;
-	printf("inside remove wrong env var tmp is %d\n", tmp);
 	removed_wrong_env_var = ft_fill_the_double_d(tmp, before_equal, str);
 	ft_free_double_d(str);
 	return (removed_wrong_env_var);
