@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/26 20:11:52 by aguede            #+#    #+#             */
+/*   Updated: 2024/03/26 20:11:53 by aguede           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lumumbash.h"
 
 // static void	ft_unset_helper(t_minishell *minishell, char *key)
@@ -37,10 +49,9 @@
 
 static void	ft_unset_helper(t_minishell *minishell, char *key)
 {
-	//t_env	*current;
-	int	i;
-	int j;
-	char **str;
+	int			i;
+	int			j;
+	char		**str;
 	t_lists_env	envi;
 
 	i = 0;
@@ -50,13 +61,11 @@ static void	ft_unset_helper(t_minishell *minishell, char *key)
 	while (minishell->environ[j] != NULL)
 	{
 		if (ft_strcmp(key, envi.p1[j]) == 0)
-		{
 			j++;
-		}
 		if (minishell->environ[j] != NULL)
 			str[i] = ft_strdup(minishell->environ[j]);
 		else
-			break;
+			break ;
 		i++;
 		j++;
 	}

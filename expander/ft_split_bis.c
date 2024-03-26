@@ -3,74 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_bis.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:51:19 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/26 16:27:52 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/27 00:36:48 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
 #include "lumumbash.h"
 
-// int	ft_countword(const char *s, char c)
-// {
-// 	int	count;
-// 	int	i;
-
-// 	count = 0;
-// 	i = 0;
-// 	while (s[i] != 0)
-// 	{
-// 		if (s[i] == c)
-// 		{
-// 			count++;
-// 			i++;
-// 			while (s[i] != 0)
-// 			{
-// 				if (isspace(s[i]))
-// 				{
-// 					count++;
-// 					break ;
-// 				}
-// 				i++;
-// 			}
-// 		}
-// 		i++;
-// 	}
-// 	return (count + 1);
-// }
-
-// int	ft_countword(const char *s, char c)
-// {
-// 	int	count;
-// 	int	i;
-
-// 	count = 0;
-// 	i = 0;
-// 	while (s[i] != 0)
-// 	{
-// 		if (s[i] == c)
-// 		{
-// 			count++;
-// 			i++;
-// 			while (s[i] != 0 || isspace(s[i]))
-// 			{
-// 				if (isspace(s[i]))
-// 					count++;
-// 				i++;
-// 			}
-// 		}
-// 		if (s[i] != 0)
-// 			i++;
-// 	}
-// 	if (s[i] == '$')
-// 		return (count);
-// 	return (count + 1);
-// }
-void	ft_free_tmp(char *str, int c , int check)
+void	ft_free_tmp(char *str, int c, int check)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (check == 1 && str)
@@ -84,47 +29,60 @@ void	ft_free_tmp(char *str, int c , int check)
 	free(str);
 }
 
-int	ft_dollar(char *str)
-{
-	int i;
-	
-	i = 0;
-	while(str[i] != '\0')
-	{
-		if (str[i] == '$')
-			return (1);
-		i++;
-	}
-	return (0);
-}
+// int	ft_dollar(char *str)
+// {
+// 	int	i;
 
-int ft_digit_or_q(char *str, char c)
-{
-    char *tmp = str;
-    if ((ft_isdigit(*tmp) || *tmp == '?') && *(tmp - 1) == c)
-        return 1;
-    else
-        return 0;
-}
+// 	i = 0;
+// 	while (str[i] != '\0')
+// 	{
+// 		if (str[i] == '$')
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
-int	ft_countword(char *str, char c)
+// int	ft_digit_or_q(char *str, char c)
+// {
+// 	char	*tmp;
+
+// 	tmp = str;
+// 	if ((ft_isdigit(*tmp) || *tmp == '?') && *(tmp - 1) == c)
+// 		return (1);
+// 	else
+// 		return (0);
+// }
+
+// int	ft_strlen_double(char **str)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (str[i] != NULL)
+// 	{
+// 		i++;
+// 	}
+// 	return (i);
+// }
+
+int	ft_countword(char *str, char c, char *tmp)
 {
 	int	i;
 	int	n;
-	int flag;
-	char	*tmp;
-	
+	int	flag;
+
 	i = 1;
 	n = 0;
 	flag = 0;
-	tmp = ft_strdup(str);
 	if (!ft_dollar(str))
 		return (ft_free_tmp(tmp, ft_strlen(str), 0), 1);
-	while(*tmp)
+	while (*tmp)
 	{
 		if (*tmp == c)
 			flag = 1;
-		if ((*tmp == c && n == 1) || (flag == 1 && (ft_isspace(*tmp) || ft_digit_or_q(tmp, c))))
+		if ((*tmp == c && n == 1) || (flag == 1 && (ft_isspace(*tmp)
+					|| ft_digit_or_q(tmp, c))))
 		{
 			i++;
 			n = 0;
@@ -136,110 +94,116 @@ int	ft_countword(char *str, char c)
 	}
 	return (ft_free_tmp(tmp, ft_strlen(str), 1), i);
 }
-// char	*fill_the_word(char *str, int end, char *lst)
+
+// char	*ft_fill_the_word(char *str, int end, char *lst)
 // {
 // 	int	i;
+// 	int	tmp;
 
+// 	tmp = end;
+// 	while (end > 0)
+// 	{
+// 		str--;
+// 		end--;
+// 	}
 // 	i = 0;
-// 	while (i < end)
+// 	while (i < tmp)
 // 	{
 // 		lst[i] = str[i];
 // 		i++;
 // 	}
+// 	(void)str;
 // 	lst[i] = 0;
 // 	return (lst);
 // }
-char	*ft_fill_the_word(char *str, int end, char *lst)
-{
-	int	i;
-	int	tmp;
 
-	tmp = end;
-	// what about lst ? how to check the size
-	while (end > 0)
-	{
-		str--;
-		end--;
-	}
-	i = 0;
-	while (i < tmp)
-	{
-		lst[i] = str[i];
-		i++;
-	}
-	(void)str;
-	lst[i] = 0;
-	return (lst);
-}
+// char	**ft_allocate_memory(char *str, char c)
+// {
+// 	char	**lst;
+// 	char	*tmp;
 
-char	**ft_allocate_memory(char *str, char c)
+// 	tmp = ft_strdup(str);
+// 	lst = ft_calloc((ft_countword(str, c, tmp) + 1), sizeof(char *));
+// 	if (!str || !lst)
+// 		return (NULL);
+// 	return (lst);
+// }
+
+// int	find_next_word_length(char *str, char c)
+// {
+// 	int	reset;
+// 	int	flag;
+
+// 	reset = 0;
+// 	flag = 0;
+// 	while ((reset > 0 && *str != c) || reset == 0)
+// 	{
+// 		if (*str == c)
+// 			flag = 1;
+// 		if ((flag == 1 && (isspace(*str))) || (*str == '\0'))
+// 			break ;
+// 		else if (flag == 1 && ft_digit_or_q(str, c))
+// 		{
+// 			reset++;
+// 			str++;
+// 			break ;
+// 		}
+// 		str++;
+// 		reset++;
+// 	}
+// 	return (reset);
+// }
+
+char	*allocate_and_fill_word(char *str, int length)
 {
-	char	**lst;
-	//if(dollar_is_)
-	lst = ft_calloc((ft_countword(str, c) + 1), sizeof(char *));
-	if (!str || !lst)
+	char	*word;
+	int		i;
+
+	word = calloc(length + 1, sizeof(char));
+	if (!word)
 		return (NULL);
-	return (lst);
-}
-
-char    **ft_fill_array(char **lst, char *str, char c, int n)
-{
-    int    j;
-    int    reset;
-    int    flag;
-
-    j = 0;
-    reset = 0;
-    while (*str != '\0')
-    {
-        flag = 0;
-        while ((reset > 0 && *str != c) || reset == 0)
-        {
-            if (*str == c)
-                flag = 1;
-            if ((flag == 1 && (ft_isspace(*str))) || (*str == 0))
-                break ;
-            else if (flag == 1 && ft_digit_or_q(str, c))
-            {
-                reset++;
-                str++;
-                break;
-            }
-            str++;
-            reset++;
-        }
-        lst[j] = ft_calloc(reset + 1, sizeof(char)); 
-        lst[j] = ft_fill_the_word(str, reset, lst[j]);
-        j++;
-        if (j == n - 1)
-          break;
-        reset = 0;
-    }
-    return (lst[j] = NULL, lst);
-}
-
-int	ft_strlen_double(char **str)
-{
-	int i;
-
 	i = 0;
-	while(str[i] != NULL)
+	while (i < length)
 	{
+		word[i] = str[i];
 		i++;
 	}
-	return (i);
+	return (word);
+}
+
+char	**ft_fill_array(char **lst, char *str, char c, int n)
+{
+	int	j;
+	int	word_length;
+
+	j = 0;
+	while (*str != '\0')
+	{
+		word_length = find_next_word_length(str, c);
+		lst[j] = allocate_and_fill_word(str, word_length);
+		if (!lst[j])
+			return (NULL);
+		j++;
+		if (j == n - 1)
+			break ;
+		str += word_length;
+	}
+	lst[j] = NULL;
+	return (lst);
 }
 
 char	**ft_split_bis(char *str, char c)
 {
 	char	**lst;
 	char	*tmp;
+	char	*tmp2;
 
 	tmp = ft_strdup(str);
+	tmp2 = ft_strdup(str);
 	lst = ft_allocate_memory(str, c);
 	if (!lst)
 		return (NULL);
-	lst = ft_fill_array(lst, tmp, c, ft_countword(str, c) + 1);
+	lst = ft_fill_array(lst, tmp, c, ft_countword(str, c, tmp2) + 1);
 	free(tmp);
 	return (lst);
 }

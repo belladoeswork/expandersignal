@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 16:18:41 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/26 16:27:38 by tbella-n         ###   ########.fr       */
+/*   Created: 2024/03/27 00:25:44 by aguede            #+#    #+#             */
+/*   Updated: 2024/03/27 00:31:11 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
-#include "lumumbash.h"
 
 int	ft_check_if_expand(char *str, char **p1)
 {
@@ -22,7 +21,9 @@ int	ft_check_if_expand(char *str, char **p1)
 	{
 		while (p1[i] != NULL)
 		{
-			if ((ft_strncmp(str + 1, p1[i], ft_strlen(p1[i])) == 0 && (ft_strlen(p1[i]) == (ft_strlen(str) - 1))) || str[1] == '?')
+			if ((ft_strncmp(str + 1, p1[i], ft_strlen(p1[i])) == 0
+					&& (ft_strlen(p1[i]) == (ft_strlen(str) - 1)))
+				|| str[1] == '?')
 			{
 				return (1);
 			}
@@ -65,80 +66,43 @@ int	ft_check_dollar(char *str)
 	return (0);
 }
 
+void	expand_tokens(t_token *tokens, char **p1, char **p2)
+{
+	char	*expanded_tilde;
+	char	**div_by_quote;
+	char	**div_by_doll;
+	char	**clean;
+
+	while (tokens != NULL)
+	{
+		if (tokens->type == TOKEN_WORD)
+		{
+			expanded_tilde = ft_expand_tilde(tokens->value, p1, p2);
+			if (ft_check_dollar(tokens->value))
+			{
+				div_by_quote = ft_new_ft_split(expanded_tilde, '\'');
+				div_by_doll = ft_split_double(div_by_quote, '$');
+				ft_free_double_d(div_by_quote);
+				clean = ft_remove_wrong_env_var(div_by_doll, p1);
+				tokens->value = ft_expand_assemble(clean, p1, p2);
+				ft_free_double_d(clean);
+			}
+			else
+				tokens->value = ft_strdup(expanded_tilde);
+			free(expanded_tilde);
+		}
+		tokens = tokens->next;
+	}
+}
+
 t_token	*ft_expander(t_token *tokens, char **env)
 {
 	t_lists_env	envi;
-	char		**div_by_quote = NULL;
 	t_token		*head;
-	char		**div_by_doll = NULL;
-	char		**clean = NULL;
-	char		*expanded_tilde;
 
 	envi = ft_split_lists_env(env);
 	head = tokens;
-	while (tokens != NULL)
-	{
-		if(tokens->type == TOKEN_WORD)
-		{
-			expanded_tilde = ft_expand_tilde(tokens->value, envi.p1, envi.p2);
-			if (tokens->type == TOKEN_WORD
-				&& ft_check_dollar(tokens->value))
-			{
-				div_by_quote = ft_new_ft_split(expanded_tilde, '\'');
-				//div_by_quote = new_ft_split(tokens->value, '\'');
-				//ft_print_double_d(div_by_quote, "expander after div_by_quote", -1);
-				div_by_doll = ft_split_double(div_by_quote, '$');
-				//ft_print_double_d(div_by_doll, "expander after div_by_doll", -1);
-				// if ((check_dollar_word_expand(div_by_doll, envi.p1)) >= 1)
-				// {
-					ft_free_double_d(div_by_quote);
-					// todo clean doit ft_double_strdup div_by_doll comme ca je peux free_double_d div by doll a la fin
-					clean = ft_remove_wrong_env_var(div_by_doll, envi.p1);
-					//ft_print_double_d(clean, "expander after remove_wrong_env_var", -1);
-					// todo egalement double ft_strdup clean dans expand and assemble
-					//free(tokens->value);
-					tokens->value = ft_expand_assemble(clean, envi.p1, envi.p2);
-					ft_free_double_d(clean);
-					// ! normally the rest of the code will handle freeing tokens-> value
-				// }
-				// todo use a ft_double_strdup to send div_by_doll
-				// todo free div_by_doll
-			}
-			else
-			{
-				//free(tokens->value);
-				tokens->value = ft_strdup(expanded_tilde);
-			}
-			//if (ft_strncmp(tokens->value, expanded_tilde, ft_strlen(expanded_tilde) != 0))
-		}
-		free(expanded_tilde);
-		tokens = tokens->next;
-		// if (expanded_tilde)
-		// {
-		// 	if (ft_strncmp(tokens->prev->value, expanded_tilde, ft_strlen(tokens->prev->value) != 0))
-		// 		free(expanded_tilde);
-		// }
-	}
-	//free(expanded_tilde);
-	ft_free_double_d(envi.p1);
-	ft_free_double_d(envi.p2);
-	//ft_free_everything(envi, div_by_quote, clean);//, expanded_tilde);
+	expand_tokens(tokens, envi.p1, envi.p2);
+	ft_free_envi(envi.p1, envi.p2);
 	return (head);
 }
-
-// echo hello users 'hi' how are you '$USER' doing $SHELL $USERT oh $hey jjk
-// echo hello users 'hi' $?GFG$123 orhh $SHELL $tacruquoi
-// valgrind --leak-check=full --track-origins=yes ./lumumbash 2>&1 | tee valgrind.txt
-// issues : 
-// rest of minishell :
-
-
-// leaks inside expander : 1 error left
-// leaks inside export : should be easy to handle
-// norminette : afternoon, evening
-// fix le bail comme quoi
-
-
-// run minishell inside minishell
-// signals inside minishell inside minishell
-// exit status

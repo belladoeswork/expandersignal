@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_assemble.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:47:05 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/26 16:34:07 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/26 23:18:29 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,50 +64,17 @@ int	ft_my_strlen(long number)
 	return (returnv);
 }
 
-char	*ft_itoa(int n)
-{
-	char	*result;
-	long	number;
-	int		i;
-
-	number = n;
-	i = ft_my_strlen(number);
-	result = ft_calloc((i + 1), sizeof(char));
-	if (!result)
-		return (NULL);
-	result[i--] = '\0';
-	if (number == 0)
-	{
-		result[0] = 48;
-	}
-	if (number < 0)
-	{
-		number *= -1;
-		result[0] = '-';
-	}
-	while (number > 0)
-	{
-		result[i--] = (number % 10) + '0';
-		number = number / 10;
-	}
-	return (result);
-}
-
 char	*ft_indeed_expand(char *to_expand, char *b_equal[], char **a_equal)
 {
-	int	k;
-	// int	i;
+	int		k;
+	char	*str;
 
 	k = 0;
-	// i = 0;
 	if (to_expand[1] == '?')
 	{
-		// char *str = calloc(2, sizeof(char));
-		// str[0] = 48;
-		char *str = ft_itoa(errno);
-		return(str);
+		str = ft_itoa(errno);
+		return (str);
 	}
-
 	while (b_equal[k] != NULL)
 	{
 		if (ft_strncmp(to_expand + 1, b_equal[k], ft_strlen(b_equal[k])) == 0)

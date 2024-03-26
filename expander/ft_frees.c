@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_frees.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:48:14 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/24 23:02:56 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/27 00:33:30 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_free_double_d(char **str)
 	int	i;
 
 	i = 0;
-	if(str)
+	if (str)
 	{
 		while (str[i] != NULL)
 		{
@@ -26,4 +26,10 @@ void	ft_free_double_d(char **str)
 		}
 		free(str);
 	}
+}
+
+void	ft_free_envi(char **part1, char **part2)
+{
+	ft_free_double_d(part1);
+	ft_free_double_d(part2);
 }

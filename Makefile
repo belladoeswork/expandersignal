@@ -8,9 +8,11 @@ BUILTINS	:=	builtins/echo.c \
 				builtins/exit.c \
 				builtins/pwd.c \
 				builtins/export.c \
+				builtins/export_modif.c \
 				builtins/unset.c \
 				builtins/env.c \
 				builtins/cd.c \
+				builtins/export_utils.c \
 
 CLEANERS	:=	cleaners/clean.c \
 				cleaners/free.c \
@@ -38,6 +40,8 @@ EXPANDER    :=  expander/expander.c \
                 expander/expand_assemble.c \
                 expander/remove_wrong_env_var.c \
                 expander/expand_tilde.c \
+				expander/expander_helpers.c \
+				expander/expander_utils_2.c \
 
 
 HELP		:=  help/echo_helpers.c \

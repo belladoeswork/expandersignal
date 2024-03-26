@@ -23,3 +23,7 @@ https://docstore.mik.ua/orelly/networking/puis/appc_04.htm -> kill command
 
 builtins :
 cd : https://stackoverflow.com/questions/298510/how-to-get-the-current-directory-in-a-c-program
+
+// echo hello users 'hi' how are you '$USER' doing $SHELL $USERT oh $hey jjk
+// echo hello users 'hi' $?GFG$123 orhh $SHELL $tacruquoi
+// valgrind --leak-check=full --track-origins=yes ./lumumbash 2>&1 | tee valgrind.txt

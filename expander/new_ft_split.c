@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_ft_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:32:54 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/26 16:28:07 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/27 00:22:14 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,13 @@ char	*ft_until_single_quote(char *str, int i)
 
 char	**ft_new_ft_split(char *str, char c)
 {
-	char	**str_return ;
 	int		i;
 	int		j;
+	char	**str_return;
 
 	i = 0;
 	j = 0;
-	str_return = ((ft_calloc(ft_count_words(str) + 1, sizeof(char *))));
+	str_return = (((ft_calloc(ft_count_words(str) + 1, sizeof(char *)))));
 	if (!str_return)
 		return (NULL);
 	while (str[i] != 0)
