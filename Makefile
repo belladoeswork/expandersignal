@@ -41,8 +41,9 @@ EXPANDER    :=  expander/expander.c \
 
 
 HELP		:=  help/echo_helpers.c \
-				help/env_helpers.c \
+				help/append_helpers.c \
 				help/exec_helpers.c \
+				help/parse_help.c \
 				help/exphelp.c \
 				help/libfthelp.c \
 				help/tk_helpers.c \
@@ -53,6 +54,7 @@ PARSER		:=	parser/nodes.c \
 				parser/parser_helpers.c \
 				parser/parser_utils.c \
 				parser/parser.c \
+				parser/redir_help.c \
 
 MINILIBFT	:=	minilibft/comp.c \
 				minilibft/issomething.c \
@@ -64,6 +66,8 @@ TOKENIZER	:=	tokenizer/tokenizer.c \
 				tokenizer/tokens_list.c \
 				tokenizer/tokens_utils.c \
 				tokenizer/tokenizer_utils.c \
+				tokenizer/separator_handlers.c \
+				tokenizer/handle_utils.c \
 
 SRCS		:=	$(BUILTINS)\
 				$(HELP)\

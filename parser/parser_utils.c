@@ -1,21 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/26 19:43:55 by tbella-n          #+#    #+#             */
+/*   Updated: 2024/03/27 00:49:54 by tbella-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lumumbash.h"
-
-bool	ft_current_token_is_op(t_minishell *minishell)
-{
-	t_token_type	type;
-
-	if (!minishell->current_token)
-		return (false);
-	type = minishell->current_token->type;
-	if (type == TOKEN_PIPE)
-		return (true);
-	return (false);
-}
-
-void	ft_get_next_token(t_minishell *minishell)
-{
-	minishell->current_token = minishell->current_token->next;
-}
 
 bool	ft_is_redir(t_token_type type)
 {
@@ -51,12 +46,113 @@ bool	ft_join_args(char **args, t_minishell *minishell)
 	return (true);
 }
 
+// bool	ft_get_redir_list(t_redir_node **redir_list, t_minishell *minishell)
+// {
+// 	t_token_type	redir_type;
+// 	t_redir_node	*tmp_redir_node;
+
+// 	if (minishell->parse_error.type)
+// 	{
+// 		return (false);
+// 	}
+// 	while (minishell->current_token
+// 		&& ft_is_redir(minishell->current_token->type))
+// 	{
+// 		redir_type = minishell->current_token->type;
+// 		ft_get_next_token(minishell);
+// 		if (!minishell->current_token)
+// 		{
+// 			return (ft_set_parse_error(SYNTAX_ERROR), false);
+// 		}
+// 		if (minishell->current_token->type != TOKEN_WORD)
+// 		{
+// 			return (ft_set_parse_error(SYNTAX_ERROR), false);
+// 		}
+// 		tmp_redir_node = ft_new_redir_node(redir_type,
+// 				minishell->current_token->value);
+// 		if (!tmp_redir_node)
+// 		{
+// 			ft_clear_redir_list(redir_list);
+// 			ft_set_parse_error(MALLOC_ERROR);
+// 			return (false);
+// 		}
+// 		ft_append_redir_node(redir_list, tmp_redir_node);
+// 		ft_get_next_token(minishell);
+// 	}
+// 	return (true);
+// }
+
+// bool	ft_process_redirection(t_redir_node **redir_list,
+// 		t_minishell *minishell, t_token_type redir_type)
+// {
+// 	bool	handle_redir_result;
+// 	bool	create_append_result;
+
+// 	ft_get_next_token(minishell);
+// 	handle_redir_result = ft_handle_redir_type(minishell);
+// 	if (!handle_redir_result)
+// 	{
+// 		return (false);
+// 	}
+// 	create_append_result = ft_create_append_redir_node(redir_list, minishell,
+// 			redir_type);
+// 	if (!create_append_result)
+// 	{
+// 		return (false);
+// 	}
+// 	return (true);
+// }
+
+// bool	ft_get_redir_list(t_redir_node **redir_list, t_minishell *minishell)
+// {
+// 	t_token_type	redir_type;
+// 	bool			process_result;
+
+// 	if (minishell->parse_error.type)
+// 	{
+// 		return (false);
+// 	}
+// 	while (minishell->current_token
+// 		&& ft_is_redir(minishell->current_token->type))
+// 	{
+// 		redir_type = minishell->current_token->type;
+// 		process_result = ft_process_redirection(redir_list, minishell,
+// 				redir_type);
+// 		if (!process_result)
+// 		{
+// 			return (false);
+// 		}
+// 	}
+// 	return (true);
+// }
+
+bool	check_parse_error(t_minishell *minishell)
+{
+	t_parse_error_type	parse_error_type;
+
+	parse_error_type = minishell->parse_error.type;
+	if (parse_error_type)
+	{
+		return (false);
+	}
+	return (true);
+}
+
+bool	check_current_token(t_minishell *minishell)
+{
+	if (!minishell->current_token)
+	{
+		ft_set_parse_error(SYNTAX_ERROR);
+		return (false);
+	}
+	return (true);
+}
+
 bool	ft_get_redir_list(t_redir_node **redir_list, t_minishell *minishell)
 {
 	t_token_type	redir_type;
-	t_redir_node	*tmp_redir_node;
 
-	if (minishell->parse_error.type)
+	if (!check_parse_error(minishell))
 	{
 		return (false);
 	}
@@ -65,23 +161,14 @@ bool	ft_get_redir_list(t_redir_node **redir_list, t_minishell *minishell)
 	{
 		redir_type = minishell->current_token->type;
 		ft_get_next_token(minishell);
-		if (!minishell->current_token)
+		if (!check_current_token(minishell) || !check_token_type(minishell))
 		{
-			return (ft_set_parse_error(SYNTAX_ERROR), false);
-		}
-		if (minishell->current_token->type != TOKEN_WORD)
-		{
-			return (ft_set_parse_error(SYNTAX_ERROR), false);
-		}
-		tmp_redir_node = ft_new_redir_node(redir_type,
-				minishell->current_token->value);
-		if (!tmp_redir_node)
-		{
-			ft_clear_redir_list(redir_list);
-			ft_set_parse_error(MALLOC_ERROR);
 			return (false);
 		}
-		ft_append_redir_node(redir_list, tmp_redir_node);
+		if (!create_and_append_redir_node(redir_list, minishell, redir_type))
+		{
+			return (false);
+		}
 		ft_get_next_token(minishell);
 	}
 	return (true);

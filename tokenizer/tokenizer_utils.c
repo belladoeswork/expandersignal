@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/26 21:06:28 by tbella-n          #+#    #+#             */
+/*   Updated: 2024/03/26 21:07:56 by tbella-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lumumbash.h"
 
 int	ft_skip_quotes(char *str, size_t *i)
@@ -26,11 +38,7 @@ int	ft_skip_quotes(char *str, size_t *i)
 
 void	ft_quote_error(char c)
 {
-	// t_minishell	*minishell;
-
-	// minishell = NULL;
 	ft_putstr_fd("lumumbash: unexpected EOF while looking for matching `", 2);
 	ft_putchar_fd(c, 2);
 	ft_putstr_fd("'\n", 2);
-	// minishell->exit_s = 258;
 }

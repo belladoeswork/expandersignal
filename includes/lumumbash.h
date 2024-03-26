@@ -1,12 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lumumbash.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/27 00:28:01 by tbella-n          #+#    #+#             */
+/*   Updated: 2024/03/27 00:28:13 by tbella-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LUMUMBASH_H
 # define LUMUMBASH_H
 
+# include "expander.h"
+# include "global.h"
 # include "parser.h"
 # include "tokenizer.h"
-# include "global.h"
-# include "expander.h"
 # include <ctype.h>
 # include <dirent.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <limits.h>
 # include <readline/history.h>
@@ -15,7 +28,6 @@
 # include <stdbool.h>
 # include <stdint.h>
 # include <stdio.h>
-#include <errno.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/wait.h>
@@ -30,43 +42,40 @@ typedef enum e_ast_direction
 	TD_RIGHT
 }		t_ast_direction;
 
-
-
-
-//minilift
-bool ft_isnumber(char *s);
-char *ft_strcat(char *dest, const char *src);
-char *ft_strcpy(char *dest, const char *src);
+// minilift
+bool	ft_isnumber(char *s);
+char	*ft_strcat(char *dest, const char *src);
+char	*ft_strcpy(char *dest, const char *src);
 
 // dup errors
 
-int ft_safe_dup2(int oldfd, int newfd);
-int ft_safe_close(int fd);
-int ft_safe_open(const char *pathname, int flags, mode_t mode);
+int		ft_safe_dup2(int oldfd, int newfd);
+int		ft_safe_close(int fd);
+int		ft_safe_open(const char *pathname, int flags, mode_t mode);
 
 // builtins
 int		ft_echo(char **args);
-void ft_handle_arguments(char **args, int start_index);
+void	ft_handle_arguments(char **args, int start_index);
 
 void	ft_exit(char **args, t_minishell *minishell);
 int		ft_pwd(void);
 
-char **ft_split_path(char *path);
-int ft_count_colons(char *path);
-char *ft_find_command_path(const char *command);
-int ft_cd(char **args);
+char	**ft_split_path(char *path);
+int		ft_count_colons(char *path);
+char	*ft_find_command_path(const char *command);
+int		ft_cd(char **args);
 
 // void	ft_init_envlst(t_minishell *minishell);
 // char *ft_get_env_val(const char *key, char **environ);
 // int ft_env(t_minishell *minishell);
-int ft_env(char **environ);
+int		ft_env(char **environ);
 // int		ft_unset(char **args, t_minishell *minishell);
-int	ft_unset(char **args, t_minishell **minishell);
+int		ft_unset(char **args, t_minishell **minishell);
 // void	ft_update_envlst(char *key, char *value, bool create,
 // 			t_minishell *minishell);
 // int		ft_export(char **argv, t_minishell *minishell);
-int	ft_export(char **argv, t_minishell **minishell);
-int 	ft_strlen_double_pers(char **str);
+int		ft_export(char **argv, t_minishell **minishell);
+int		ft_strlen_double_pers(char **str);
 // help
 size_t	ft_strlen(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -88,9 +97,13 @@ void	ft_clean_shell(t_minishell *minishell);
 void	*ft_collector(void *ptr, bool clean);
 void	ft_free_char2(char **tofree); // added after expander
 
+int		ft_append_char_to_word(char *word, int *j, char c);
+int		ft_check_special_char(char c);
+int		ft_add_word_to_token_list(t_token **token_list, char *word);
+int		ft_allocate_word(char **word, char *line);
 
 /// newly added:
-int ft_handle_flags(char **args);
+int		ft_handle_flags(char **args);
 
 // tree.c
 void	ft_init_tree(t_node *node);
@@ -98,12 +111,12 @@ bool	ft_is_delimiter(char *delimiter, char *str);
 void	ft_heredoc(t_redir_node *redir, int p[2]);
 // pipes_exec.c
 // int		ft_exec_child(t_node *node);
-int ft_exec_child(char **split_args);
-char *ft_find_command_path(const char *command);
+int		ft_exec_child(char **split_args);
+char	*ft_find_command_path(const char *command);
 
-void ft_execute_child_process(char **split_args);
+void	ft_execute_child_process(char **split_args);
 
-int ft_wait_for_child(pid_t pid);
+int		ft_wait_for_child(pid_t pid);
 // exec.c
 int		ft_get_exit_status(int status);
 int		ft_exec_node(t_node *tree, bool piped, t_minishell *minishell);
@@ -117,11 +130,11 @@ void	ft_reset_stds(bool piped);
 // int		ft_exec_builtin(char **args, t_minishell *minishell);
 bool	ft_is_builtin(char *arg);
 
-int ft_exec_simple_cmd(t_node *node, bool piped, t_minishell *minishell);
+int		ft_exec_simple_cmd(t_node *node, bool piped, t_minishell *minishell);
 // int ft_exec_simple_cmd(t_node *node, bool piped, t_minishell *minishell);
 
-int ft_exec_builtin_cmd(t_node *node, bool piped, t_minishell *minishell);
-int exec_non_builtin_cmd(t_node *node, bool piped);
+int		ft_exec_builtin_cmd(t_node *node, bool piped, t_minishell *minishell);
+int		exec_non_builtin_cmd(t_node *node, bool piped);
 
 // errors.c
 int		ft_error_msg(t_error error);
@@ -135,20 +148,20 @@ int		ft_in(t_redir_node *redir_list, int *status);
 int		ft_append(t_redir_node *redir_list, int *status);
 
 //
-
+void	ft_process_tokens(t_minishell *minishell, t_node *node, int *i);
+char	**ft_allocate_split_args(void);
 
 // expander.c
-t_token *ft_expander(t_token *tokenized_tokens, char **env);
+t_token	*ft_expander(t_token *tokenized_tokens, char **env);
 
 // signals.c
 
-void    ft_signals();
-void    ft_signal_ctrl_slash(int numsig);
-void    ft_signal_ctrl_d(int numsig);
-void    ft_signal_ctrl_c(int numsig);
-
+void	ft_signals(void);
+void	ft_signal_ctrl_slash(int numsig);
+void	ft_signal_ctrl_d(int numsig);
+void	ft_signal_ctrl_c(int numsig);
 
 // ADDED TODAY
-void ft_free_split_args(char **split_args);
+void	ft_free_split_args(char **split_args);
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/26 21:06:38 by tbella-n          #+#    #+#             */
+/*   Updated: 2024/03/26 21:06:46 by tbella-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lumumbash.h"
 
 t_token	*ft_new_token(char *value, t_token_type type)
@@ -27,8 +39,8 @@ void	ft_free_token(t_token *token)
 
 t_token	*ft_tokenize(char *input_line)
 {
-	t_token *token_list;
-	char *line;
+	t_token	*token_list;
+	char	*line;
 
 	line = ft_strdup(input_line);
 	token_list = ft_tokenization_handler(line);

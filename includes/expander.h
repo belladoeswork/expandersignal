@@ -1,11 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/27 00:27:06 by tbella-n          #+#    #+#             */
+/*   Updated: 2024/03/27 00:27:26 by tbella-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef EXPANDER_H
 # define EXPANDER_H
 
 # include "lumumbash.h"
-#include "parser.h"
+# include "parser.h"
 # include "tokenizer.h"
 # include <ctype.h>
 # include <dirent.h>
+# include <errno.h>
 # include <limits.h>
 # include <stdint.h>
 # include <stdio.h>
@@ -13,7 +26,6 @@
 # include <string.h>
 # include <termios.h>
 # include <unistd.h>
-# include <errno.h>
 
 typedef struct s_lists_env
 {
@@ -22,10 +34,8 @@ typedef struct s_lists_env
 }			t_lists_env;
 
 // utils
-int ft_my_strlen(long number);
-char *ft_strdup(const char *s1);
-// size_t		ft_strlen(const char *s);
-// int			ft_strncmp(char *s1, char *s2, size_t n);
+int			ft_my_strlen(long number);
+char		*ft_strdup(const char *s1);
 char		*ft_strchr(const char *s, int c);
 size_t		ft_strncpy(char *dst, const char *src, size_t size);
 
@@ -42,14 +52,13 @@ t_token		*ft_expander(t_token *tokenized_tokens, char **env);
 void		ft_free_double_d(char **str);
 
 // expand_tilde.c
-char *ft_expand_tilde(char *str, char **p1, char **p2);
+char		*ft_expand_tilde(char *str, char **p1, char **p2);
 
 // tester_functions.c
 void		ft_print_double_d(char **str, char *from, int n);
 int			ft_count_number_of_words(char ***triple_d_str);
-// char		*ft_strcat(char *dest, char *src);
-// void	ft_free_everything(t_lists_env envi,char **div_by_quote,char **clean, char *expanded_tilde);
-void	ft_free_everything(t_lists_env envi,char **div_by_quote,char **clean);
+void		ft_free_everything(t_lists_env envi, char **div_by_quote,
+				char **clean);
 // expand_assemble.c
 char		*ft_expand_assemble(char **str, char **b_equal, char **a_equal);
 
