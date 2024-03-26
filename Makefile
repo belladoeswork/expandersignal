@@ -40,7 +40,7 @@ EXPANDER    :=  expander/expander.c \
                 expander/expand_assemble.c \
                 expander/remove_wrong_env_var.c \
                 expander/expand_tilde.c \
-				expander/ft_split_bis_utils.c \
+				expander/expander_helpers.c \
 				expander/expander_utils_2.c \
 
 

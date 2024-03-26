@@ -6,11 +6,12 @@
 /*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:47:05 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/26 12:53:47 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/26 23:18:29 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
+#include "lumumbash.h"
 
 char	*ft_assemble(char **strings_to_assemble)
 {
@@ -39,6 +40,28 @@ char	*ft_assemble(char **strings_to_assemble)
 	}
 	ft_free_double_d(strings_to_assemble);
 	return (assembled_string);
+}
+
+int	ft_my_strlen(long number)
+{
+	int	returnv;
+
+	returnv = 0;
+	if (number < 0)
+	{
+		number = number * -1;
+		returnv++;
+	}
+	if (number == 0)
+	{
+		return (1);
+	}
+	while (number > 0)
+	{
+		number = number / 10;
+		returnv++;
+	}
+	return (returnv);
 }
 
 char	*ft_indeed_expand(char *to_expand, char *b_equal[], char **a_equal)

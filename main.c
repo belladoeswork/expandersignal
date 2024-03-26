@@ -50,7 +50,7 @@ int	main(int argc, char **argv, char **env)
     t_minishell minishell;
 	t_token		*new_tokens;
 
-	//print_lumumbash();
+	print_lumumbash();
 	ft_signals();
 	ft_init_minishell(&minishell, env);
 	while (1)
@@ -84,6 +84,4 @@ int	main(int argc, char **argv, char **env)
 	ft_collector(NULL, true);
 	return (ft_clean_shell(&minishell), minishell.exit_s);
 }
-
-
 // valgrind --leak-check=full --track-origins=yes ./lumumbash

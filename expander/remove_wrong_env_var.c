@@ -6,11 +6,12 @@
 /*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 21:51:52 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/26 11:19:00 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/27 00:22:39 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
+#include "lumumbash.h"
 
 char	**ft_fill_the_double_d(int n, char **before_equal, char **str)
 {

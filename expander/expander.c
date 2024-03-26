@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/20 16:18:41 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/26 12:54:46 by aguede           ###   ########.fr       */
+/*   Created: 2024/03/27 00:25:44 by aguede            #+#    #+#             */
+/*   Updated: 2024/03/27 00:31:11 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,40 +65,6 @@ int	ft_check_dollar(char *str)
 	}
 	return (0);
 }
-
-// t_token	*ft_expander(t_token *tokens, char **env)
-// {
-// 	t_lists_env	envi;
-// 	char		**div_by_quote;
-// 	t_token		*head;
-// 	char		**div_by_doll;
-// 	char		**clean;
-// 	char		*expanded_tilde;
-
-// 	envi = ft_split_lists_env(env);
-// 	head = tokens;
-// 	while (tokens != NULL)
-// 	{
-// 		if (tokens->type == TOKEN_WORD)
-// 		{
-// 			expanded_tilde = ft_expand_tilde(tokens->value, envi.p1, envi.p2);
-// 			if (tokens->type == TOKEN_WORD && ft_check_dollar(tokens->value))
-// 			{
-// 				div_by_quote = ft_new_ft_split(expanded_tilde, '\'');
-// 				div_by_doll = ft_split_double(div_by_quote, '$');
-// 				ft_free_double_d(div_by_quote);
-// 				clean = ft_remove_wrong_env_var(div_by_doll, envi.p1);
-// 				tokens->value = ft_expand_assemble(clean, envi.p1, envi.p2);
-// 				ft_free_double_d(clean);
-// 			}
-// 			else
-// 				tokens->value = ft_strdup(expanded_tilde);
-// 		}
-// 		free(expanded_tilde);
-// 		tokens = tokens->next;
-// 	}
-// 	return (ft_free_envi(envi.p1, envi.p2), head);
-// }
 
 void	expand_tokens(t_token *tokens, char **p1, char **p2)
 {

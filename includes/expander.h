@@ -46,8 +46,7 @@ int	ft_strlen_double(char **str);
 void	ft_free_tmp(char *str, int c, int check);
 int	ft_dollar(char *str);
 int	ft_digit_or_q(char *str, char c);
-int	ft_countword(char *str, char c);
-int	ft_countword(char *str, char c);
+int	ft_countword(char *str, char c, char *tmp);
 
 // size_t		ft_strlen(const char *s);
 // int			ft_strncmp(char *s1, char *s2, size_t n);
@@ -88,4 +87,11 @@ int	count_words(char *str, char c);
 
 char	*ft_fill_the_word(char *str, int end, char *lst);
 char	**ft_allocate_memory(char *str, char c);
+
+//expander utils 2.c
+int	find_next_word_length(char *str, char c);
+
+//expander_helpers.c
+char	**ft_string_to_double_d(char *str);
+
 #endif

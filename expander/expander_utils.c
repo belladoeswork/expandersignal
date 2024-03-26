@@ -6,11 +6,12 @@
 /*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:36:23 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/26 11:21:54 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/26 23:31:14 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
+#include "lumumbash.h"
 
 size_t	ft_strncpy(char *dst, const char *src, size_t size)
 {
@@ -78,28 +79,6 @@ char	*ft_strchr(const char *s, int c)
 		}
 	}
 	return (NULL);
-}
-
-int	ft_my_strlen(long number)
-{
-	int	returnv;
-
-	returnv = 0;
-	if (number < 0)
-	{
-		number = number * -1;
-		returnv++;
-	}
-	if (number == 0)
-	{
-		return (1);
-	}
-	while (number > 0)
-	{
-		number = number / 10;
-		returnv++;
-	}
-	return (returnv);
 }
 
 char	*ft_itoa(int n)

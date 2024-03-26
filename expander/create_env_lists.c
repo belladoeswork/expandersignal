@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   create_env_lists.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:45:45 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/26 15:51:21 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/26 16:26:33 by tbella-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
+#include "lumumbash.h"
 #include <ctype.h>
 
 void	ft_create_lists(char ***list_before_equal, char ***list_after_equal,

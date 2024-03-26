@@ -5,53 +5,70 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 11:19:17 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/26 11:19:22 by aguede           ###   ########.fr       */
+/*   Created: 2024/03/27 00:33:43 by aguede            #+#    #+#             */
+/*   Updated: 2024/03/27 00:33:44 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expander.h"
+#include "lumumbash.h"
 
-int	ft_strlen_double(char **str)
+char	*ft_fill_the_word(char *str, int end, char *lst)
 {
 	int	i;
+	int	tmp;
 
-	i = 0;
-	while (str[i] != NULL)
+	tmp = end;
+	while (end > 0)
 	{
+		str--;
+		end--;
+	}
+	i = 0;
+	while (i < tmp)
+	{
+		lst[i] = str[i];
 		i++;
 	}
-	return (i);
+	(void)str;
+	lst[i] = 0;
+	return (lst);
 }
 
-void	ft_free_tmp(char *str, int c, int check)
+char	**ft_allocate_memory(char *str, char c)
 {
-	int	i;
+	char	**lst;
+	char	*tmp;
 
-	i = 0;
-	if (check == 1 && str)
+	tmp = ft_strdup(str);
+	lst = ft_calloc((ft_countword(str, c, tmp) + 1), sizeof(char *));
+	if (!str || !lst)
+		return (NULL);
+	return (lst);
+}
+
+int	find_next_word_length(char *str, char c)
+{
+	int	reset;
+	int	flag;
+
+	reset = 0;
+	flag = 0;
+	while ((reset > 0 && *str != c) || reset == 0)
 	{
-		while (i < c)
+		if (*str == c)
+			flag = 1;
+		if ((flag == 1 && (ft_isspace(*str))) || (*str == '\0'))
+			break ;
+		else if (flag == 1 && ft_digit_or_q(str, c))
 		{
-			str--;
-			i++;
+			reset++;
+			str++;
+			break ;
 		}
+		str++;
+		reset++;
 	}
-	free(str);
-}
-
-int	ft_dollar(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '$')
-			return (1);
-		i++;
-	}
-	return (0);
+	return (reset);
 }
 
 int	ft_digit_or_q(char *str, char c)
@@ -65,7 +82,14 @@ int	ft_digit_or_q(char *str, char c)
 		return (0);
 }
 
-int	ft_countword(char *str, char c)
+int	ft_strlen_double(char **str)
 {
-	return (count_words(str, c) + 1);
+	int	i;
+
+	i = 0;
+	while (str[i] != NULL)
+	{
+		i++;
+	}
+	return (i);
 }
