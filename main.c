@@ -57,9 +57,11 @@ int	main(int argc, char **argv, char **env)
 	{
 		minishell.line = readline(PROMPT);
 		if (!minishell.line)
+		{
 			break;
-			//(ft_clean_shell(&minishell),
-				//ft_putstr_fd("exit\n", 1), exit(minishell.exit_s));
+			(ft_clean_shell(&minishell),
+			ft_putstr_fd("exit\n", 1), exit(minishell.exit_s));
+		}
 		if (minishell.line[0])
 			add_history(minishell.line);
 		minishell.tokens = ft_tokenize(minishell.
@@ -78,7 +80,7 @@ int	main(int argc, char **argv, char **env)
 	}
 	//ft_putstr_fd("exit\n", 1);
 	//exit(minishell.exit_s));
-	ft_free_double_d(minishell.environ);
+	//ft_free_double_d(minishell.environ);
 	ft_collector(NULL, true);
 	return (ft_clean_shell(&minishell), minishell.exit_s);
 }

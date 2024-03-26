@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:36:23 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/26 16:27:30 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:21:54 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
-#include "lumumbash.h"
-
 
 size_t	ft_strncpy(char *dst, const char *src, size_t size)
 {
@@ -80,4 +78,55 @@ char	*ft_strchr(const char *s, int c)
 		}
 	}
 	return (NULL);
+}
+
+int	ft_my_strlen(long number)
+{
+	int	returnv;
+
+	returnv = 0;
+	if (number < 0)
+	{
+		number = number * -1;
+		returnv++;
+	}
+	if (number == 0)
+	{
+		return (1);
+	}
+	while (number > 0)
+	{
+		number = number / 10;
+		returnv++;
+	}
+	return (returnv);
+}
+
+char	*ft_itoa(int n)
+{
+	char	*result;
+	long	number;
+	int		i;
+
+	number = n;
+	i = ft_my_strlen(number);
+	result = ft_calloc((i + 1), sizeof(char));
+	if (!result)
+		return (NULL);
+	result[i--] = '\0';
+	if (number == 0)
+	{
+		result[0] = 48;
+	}
+	if (number < 0)
+	{
+		number *= -1;
+		result[0] = '-';
+	}
+	while (number > 0)
+	{
+		result[i--] = (number % 10) + '0';
+		number = number / 10;
+	}
+	return (result);
 }

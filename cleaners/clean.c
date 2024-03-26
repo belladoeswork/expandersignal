@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:11:10 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/26 17:11:11 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/26 20:14:51 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_clean_shell(t_minishell *minishell)
 {
 	ft_collector(NULL, true);
 	ft_clear_ast(&(minishell->ast), minishell);
+	ft_free_double_d(minishell->environ);
 	clear_history();
 	tcsetattr(STDIN_FILENO, TCSANOW, &(minishell->original_term));
 }

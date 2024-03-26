@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   remove_wrong_env_var.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 21:51:52 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/26 16:28:14 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/26 11:19:00 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
-#include "lumumbash.h"
 
 char	**ft_fill_the_double_d(int n, char **before_equal, char **str)
 {
@@ -41,13 +40,11 @@ char	**ft_remove_wrong_env_var(char **str, char **before_equal)
 {
 	int		i;
 	int		j;
-	// int		k;
 	int		tmp;
 	char	**removed_wrong_env_var;
 
 	i = 0;
 	j = 0;
-	// k = 0;
 	while (str[i] != NULL)
 	{
 		if ((str[i][0] == '$' && !ft_check_if_expand(str[i], before_equal)))

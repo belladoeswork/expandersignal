@@ -23,3 +23,27 @@ https://docstore.mik.ua/orelly/networking/puis/appc_04.htm -> kill command
 
 builtins :
 cd : https://stackoverflow.com/questions/298510/how-to-get-the-current-directory-in-a-c-program
+
+
+// echo hello users 'hi' how are you '$USER' doing $SHELL $USERT oh $hey jjk
+// echo hello users 'hi' $?GFG$123 orhh $SHELL $tacruquoi
+// valgrind --leak-check=full --track-origins=yes ./lumumbash 2>&1 | tee valgrind.txt
+// issues :
+// rest of minishell :
+
+// leaks inside expander : 1 error left
+// leaks inside export : should be easy to handle
+// norminette : afternoon, evening
+// fix le bail comme quoi
+
+// run minishell inside minishell
+// signals inside minishell inside minishell
+// exit status
+// fix the segfault
+// fix the thing where I don't print the 23 when runnin echo hello users 'hi' $?GFG$123 orhh $SHELL $tacruquoi
+
+
+
+left to fix :
+when exiting or ctrl d there are still some leaks coming from the unset calloc (unset helper) --> free them if any of these ways to exit the program
+

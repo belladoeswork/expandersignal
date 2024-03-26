@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   new_ft_split.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:32:54 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/26 16:28:07 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:26:52 by aguede           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
-#include "lumumbash.h"
 #include <ctype.h>
 
 int	ft_count_words(char *str)

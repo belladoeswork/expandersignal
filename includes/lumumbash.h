@@ -31,7 +31,11 @@ typedef enum e_ast_direction
 }		t_ast_direction;
 
 
-
+// typedef struct s_lists_env
+// {
+// 	char	**p1;
+// 	char	**p2;
+// }			t_lists_env;
 
 //minilift
 bool ft_isnumber(char *s);
@@ -65,7 +69,28 @@ int	ft_unset(char **args, t_minishell **minishell);
 // void	ft_update_envlst(char *key, char *value, bool create,
 // 			t_minishell *minishell);
 // int		ft_export(char **argv, t_minishell *minishell);
-int	ft_export(char **argv, t_minishell **minishell);
+
+// // ! export.c
+// int	ft_export(char **argv, t_minishell **minishell);
+// char	**populate_str(char **minishellenviron, char *key, char *update,
+// 		t_lists_env list_env);
+// // export_utils.c
+
+// char	**duplicate_environ(char **minishellenviron, char *key_update,
+// 		char *value);
+// void	ft_free_lists_env(t_lists_env envi);
+// int	ft_key_check(char *key, t_minishell *minishell);
+// char	*ft_create_new_key(char *key);
+
+
+// //export_modif.c
+// char	**ft_modify_env_var(char **minishellenviron, char *key, char *value);
+
+// char	*ft_create_new_key(char *key);
+// void	ft_modif_env_var(t_lists_env envi, char *key, char *value,
+// 		t_minishell *minishell);
+
+
 int 	ft_strlen_double_pers(char **str);
 // help
 size_t	ft_strlen(const char *str);
