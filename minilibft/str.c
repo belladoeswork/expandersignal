@@ -6,13 +6,23 @@
 /*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 20:27:28 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/25 20:41:01 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/26 19:01:42 by tbella-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lumumbash.h"
 
-char	*ft_strcat(char *dest, char *src)
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strcat(char *dest, const char *src)
 {
 	int	i;
 	int	j;
@@ -33,17 +43,7 @@ char	*ft_strcat(char *dest, char *src)
 	return (dest);
 }
 
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, const char *src)
 {
 	int	i;
 

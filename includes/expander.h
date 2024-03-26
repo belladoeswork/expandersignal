@@ -2,6 +2,8 @@
 # define EXPANDER_H
 
 # include "lumumbash.h"
+#include "parser.h"
+# include "tokenizer.h"
 # include <ctype.h>
 # include <dirent.h>
 # include <limits.h>
@@ -20,8 +22,9 @@ typedef struct s_lists_env
 }			t_lists_env;
 
 // utils
-char		*ft_strdup(const char *s1);
-size_t		ft_strlen(const char *s);
+int ft_my_strlen(long number);
+char *ft_strdup(const char *s1);
+// size_t		ft_strlen(const char *s);
 // int			ft_strncmp(char *s1, char *s2, size_t n);
 char		*ft_strchr(const char *s, int c);
 size_t		ft_strncpy(char *dst, const char *src, size_t size);
@@ -44,7 +47,7 @@ char *ft_expand_tilde(char *str, char **p1, char **p2);
 // tester_functions.c
 void		ft_print_double_d(char **str, char *from, int n);
 int			ft_count_number_of_words(char ***triple_d_str);
-char		*ft_strcat(char *dest, char *src);
+// char		*ft_strcat(char *dest, char *src);
 // void	ft_free_everything(t_lists_env envi,char **div_by_quote,char **clean, char *expanded_tilde);
 void	ft_free_everything(t_lists_env envi,char **div_by_quote,char **clean);
 // expand_assemble.c

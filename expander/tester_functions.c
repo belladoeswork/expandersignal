@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   tester_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:53:25 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/25 17:00:33 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/26 16:28:26 by tbella-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
+#include "lumumbash.h"
 
 void	ft_print_double_d(char **str, char *from, int n)
 {
@@ -57,23 +58,23 @@ int	ft_count_number_of_words(char ***triple_d_str)
 	return (total);
 }
 
-char	*ft_strcat(char *dest, char *src)
-{
-	int	i;
-	int	j;
+// char	*ft_strcat(char *dest, char *src)
+// {
+// 	int	i;
+// 	int	j;
 
-	i = 0;
-	while (dest[i] != '\0')
-		i++;
-	j = 0;
-	while (src[j] != '\0')
-	{
-		dest[i + j] = src[j];
-		j++;
-	}
-	dest[i + j] = '\0';
-	return (dest);
-}
+// 	i = 0;
+// 	while (dest[i] != '\0')
+// 		i++;
+// 	j = 0;
+// 	while (src[j] != '\0')
+// 	{
+// 		dest[i + j] = src[j];
+// 		j++;
+// 	}
+// 	dest[i + j] = '\0';
+// 	return (dest);
+// }
 
 void	ft_free_everything(t_lists_env envi,char **div_by_quote,char **clean )//, char *expanded_tilde)
 {

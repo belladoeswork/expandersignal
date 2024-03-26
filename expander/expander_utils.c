@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:36:23 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/25 20:43:50 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/26 16:27:30 by tbella-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
+#include "lumumbash.h"
 
 
 size_t	ft_strncpy(char *dst, const char *src, size_t size)

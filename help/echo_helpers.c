@@ -6,7 +6,7 @@
 /*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 20:27:39 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/25 20:27:40 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/26 15:57:52 by tbella-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	ft_check_flag(char *arg)
 	return (1);
 }
 
-int	handle_flags(char **args)
+int	ft_handle_flags(char **args)
 {
 	int	i;
 

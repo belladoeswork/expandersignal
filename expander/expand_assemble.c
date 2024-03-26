@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expand_assemble.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:47:05 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/25 20:39:23 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/26 16:34:07 by tbella-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
+#include "lumumbash.h"
 
 char	*ft_assemble(char **strings_to_assemble)
 {

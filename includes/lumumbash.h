@@ -31,10 +31,12 @@ typedef enum e_ast_direction
 }		t_ast_direction;
 
 
+
+
 //minilift
 bool ft_isnumber(char *s);
-char *ft_strcat(char *dest, char *src);
-char *ft_strcpy(char *dest, char *src);
+char *ft_strcat(char *dest, const char *src);
+char *ft_strcpy(char *dest, const char *src);
 
 // dup errors
 
@@ -44,10 +46,13 @@ int ft_safe_open(const char *pathname, int flags, mode_t mode);
 
 // builtins
 int		ft_echo(char **args);
+void ft_handle_arguments(char **args, int start_index);
+
 void	ft_exit(char **args, t_minishell *minishell);
 int		ft_pwd(void);
 
 char **ft_split_path(char *path);
+int ft_count_colons(char *path);
 char *ft_find_command_path(const char *command);
 int ft_cd(char **args);
 
@@ -82,6 +87,11 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_clean_shell(t_minishell *minishell);
 void	*ft_collector(void *ptr, bool clean);
 void	ft_free_char2(char **tofree); // added after expander
+
+
+/// newly added:
+int ft_handle_flags(char **args);
+
 // tree.c
 void	ft_init_tree(t_node *node);
 bool	ft_is_delimiter(char *delimiter, char *str);
@@ -91,18 +101,28 @@ void	ft_heredoc(t_redir_node *redir, int p[2]);
 int ft_exec_child(char **split_args);
 char *ft_find_command_path(const char *command);
 
+void ft_execute_child_process(char **split_args);
+
+int ft_wait_for_child(pid_t pid);
 // exec.c
 int		ft_get_exit_status(int status);
 int		ft_exec_node(t_node *tree, bool piped, t_minishell *minishell);
+
 // exec_utils.c
 void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstnew(void *content);
 int		ft_check_redir(t_node *node);
 // exec_simple.c
 void	ft_reset_stds(bool piped);
-int		ft_exec_builtin(char **args, t_minishell *minishell);
+// int		ft_exec_builtin(char **args, t_minishell *minishell);
 bool	ft_is_builtin(char *arg);
-int		ft_exec_simple_cmd(t_node *node, bool piped, t_minishell *minishell);
+
+int ft_exec_simple_cmd(t_node *node, bool piped, t_minishell *minishell);
+// int ft_exec_simple_cmd(t_node *node, bool piped, t_minishell *minishell);
+
+int ft_exec_builtin_cmd(t_node *node, bool piped, t_minishell *minishell);
+int exec_non_builtin_cmd(t_node *node, bool piped);
+
 // errors.c
 int		ft_error_msg(t_error error);
 // checks.c

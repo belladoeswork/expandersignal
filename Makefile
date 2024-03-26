@@ -42,6 +42,7 @@ EXPANDER    :=  expander/expander.c \
 
 HELP		:=  help/echo_helpers.c \
 				help/env_helpers.c \
+				help/exec_helpers.c \
 				help/exphelp.c \
 				help/libfthelp.c \
 				help/tk_helpers.c \
@@ -67,6 +68,7 @@ TOKENIZER	:=	tokenizer/tokenizer.c \
 SRCS		:=	$(BUILTINS)\
 				$(HELP)\
 				$(CLEANERS)\
+				$(MINILIBFT)\
 				$(EXEC)\
 				$(EXPANDER)\
 				$(PARSER)\

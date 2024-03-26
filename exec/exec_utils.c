@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/26 17:16:10 by tbella-n          #+#    #+#             */
+/*   Updated: 2024/03/26 18:32:24 by tbella-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lumumbash.h"
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
@@ -32,7 +44,6 @@ int	ft_check_redir(t_node *node)
 	t_redir_node	*tmp_redir;
 	int				tmp_status;
 
-	printf("check_redir: Checking redirections\n");
 	tmp_status = SUCCESS;
 	tmp_redir = node->redir_list;
 	while (tmp_redir)
@@ -52,9 +63,7 @@ int	ft_check_redir(t_node *node)
 	}
 	if (tmp_status != SUCCESS)
 	{
-		printf("check_redir: Redirection check failed\n");
 		return (tmp_status);
 	}
-	printf("check_redir: Redirection check succeeded\n");
 	return (SUCCESS);
 }

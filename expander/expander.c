@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:18:41 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/25 17:44:47 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/26 16:27:38 by tbella-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
+#include "lumumbash.h"
 
 int	ft_check_if_expand(char *str, char **p1)
 {

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_double.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:54:32 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/24 23:05:23 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/26 16:28:01 by tbella-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
+#include "lumumbash.h"
+
 // atm final strings empty with 10 spaces
 
 char	**ft_double_strdup(char **str)

@@ -1,5 +1,16 @@
-#include "lumumbash.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tk_helpers.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/26 18:59:27 by tbella-n          #+#    #+#             */
+/*   Updated: 2024/03/26 18:59:33 by tbella-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "lumumbash.h"
 
 int	ft_alphanum(int c)
 {
@@ -45,15 +56,3 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	}
 	return (dst);
 }
-
-// char	*ft_strdup(const char *s1)
-// {
-// 	char *s1cpy;
-// 	size_t s1len;
-
-// 	s1len = ft_strlen(s1);
-// 	s1cpy = ft_calloc(s1len + 1, sizeof(char));
-// 	if (!s1cpy)
-// 		return (NULL);
-// 	return (ft_memcpy(s1cpy, s1, s1len));
-// }

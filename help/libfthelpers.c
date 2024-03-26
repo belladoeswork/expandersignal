@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libfthelpers.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/26 18:58:59 by tbella-n          #+#    #+#             */
+/*   Updated: 2024/03/26 19:06:06 by tbella-n         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lumumbash.h"
 
 void	ft_bzero(void *s, size_t n)
@@ -21,7 +33,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	if (!s1 || !s2)
 		return (NULL);
-	total_length = strlen(s1) + strlen(s2) + 1;
+	total_length = ft_strlen(s1) + ft_strlen(s2) + 1;
 	joined = ft_calloc(total_length, sizeof(char));
 	if (!joined)
 		return (NULL);
@@ -49,7 +61,7 @@ char	*ft_strjoin_with(char const *s1, char const *s2, char c)
 		return (NULL);
 	if (!c || !strlen(s1) || !strlen(s2))
 		return (ft_strjoin(s1, s2));
-	total_length = strlen(s1) + strlen(s2) + 1 + 1;
+	total_length = ft_strlen(s1) + ft_strlen(s2) + 1 + 1;
 	joined = ft_calloc(total_length, sizeof(char));
 	if (!joined)
 		return (NULL);

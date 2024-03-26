@@ -6,7 +6,7 @@
 /*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 20:27:20 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/25 20:40:32 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/26 19:01:08 by tbella-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,3 @@ int	ft_strcmp(const char *s1, const char *s2)
 	else
 		return (ft_strncmp(s1, s2, s2_len));
 }
-

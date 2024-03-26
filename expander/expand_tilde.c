@@ -1,4 +1,5 @@
 # include "expander.h"
+#include "lumumbash.h"
 
 char    *ft_search(char **p1, char **p2, char *str)
 {

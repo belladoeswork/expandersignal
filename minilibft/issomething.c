@@ -6,7 +6,7 @@
 /*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 20:27:23 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/25 20:40:46 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/26 19:04:32 by tbella-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,10 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-// static bool	ft_isnumber(char *s)
 bool	ft_isnumber(char *s)
 
 {
-	int i;
+	int			i;
 
 	i = 0;
 	while (s[i])

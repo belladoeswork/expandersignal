@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   remove_wrong_env_var.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguede <aguede@student.42berlin.de>        +#+  +:+       +#+        */
+/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 21:51:52 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/25 20:42:59 by aguede           ###   ########.fr       */
+/*   Updated: 2024/03/26 16:28:14 by tbella-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expander.h"
+#include "lumumbash.h"
 
 char	**ft_fill_the_double_d(int n, char **before_equal, char **str)
 {
