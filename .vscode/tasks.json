@@ -13,6 +13,7 @@
                 "-I${workspaceFolder}/builtins/",
                 "${workspaceFolder}/builtins/*.c",
                 "${workspaceFolder}/help/*.c",
+                "${workspaceFolder}/minilibft/*.c",
                 "${workspaceFolder}/expander/*.c",
                 "${workspaceFolder}/exec/*.c",
                 "${workspaceFolder}/cleaners/*.c",
@@ -22,7 +23,7 @@
                 "-lreadline",
                 "-lncurses",
                 "-o",
-                "/Users/tasha/Dev/expandersignal/build/Debug/outDebug",
+                "/Users/tasha/Dev/hoho/build/Debug/outDebug",
                 ""
             ],
             "options": {

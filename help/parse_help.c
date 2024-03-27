@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_help.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 20:19:21 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/26 21:04:50 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:26:47 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,17 @@ void	ft_process_tokens(t_minishell *minishell, t_node *node, int *i)
 		{
 			if (!ft_get_redir_list(&(node->redir_list), minishell))
 			{
+				minishell->current_token = NULL; // ADDED TODAY?
 				free(node->split_args);
 				free(node->args);
 				free(node);
 				return ;
 			}
 		}
-		minishell->current_token = minishell->current_token->next;
+		// minishell->current_token = minishell->current_token->next;
+		if (minishell->current_token) {
+            minishell->current_token = minishell->current_token->next;
+        }
 	}
 }
 

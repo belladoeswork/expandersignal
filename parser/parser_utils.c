@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 19:43:55 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/27 00:49:54 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/27 17:27:43 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,10 @@ bool	ft_get_redir_list(t_redir_node **redir_list, t_minishell *minishell)
 		{
 			return (false);
 		}
-		ft_get_next_token(minishell);
+		// ft_get_next_token(minishell);
+		if (minishell->current_token) {
+            ft_get_next_token(minishell);
+        }
 	}
 	return (true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 00:28:36 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/27 00:44:52 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:54:42 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef enum e_parse_err_type
 {
 	MALLOC_ERROR = 1,
 	SYNTAX_ERROR,
+	NO_ERROR,
 }						t_parse_error_type;
 typedef struct s_redir_node
 {

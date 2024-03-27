@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/tasha/Dev/expandersignal",
-      "program": "/Users/tasha/Dev/expandersignal/build/Debug/outDebug"
+      "cwd": "/Users/tasha/Dev/hoho",
+      "program": "/Users/tasha/Dev/hoho/build/Debug/outDebug"
     }
   ]
 }
