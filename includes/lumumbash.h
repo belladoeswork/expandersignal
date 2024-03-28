@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lumumbash.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 00:28:01 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/27 00:53:06 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/28 02:03:46 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ char *ft_strcpy(char *dest, const char *src);
 
 // dup errors
 
-int		ft_safe_dup2(int oldfd, int newfd);
-int		ft_safe_close(int fd);
-int		ft_safe_open(const char *pathname, int flags, mode_t mode);
+// int		ft_safe_dup2(int oldfd, int newfd);
+// int		ft_safe_close(int fd);
+// int		ft_safe_open(const char *pathname, int flags, mode_t mode);
 
 // builtins
 int		ft_echo(char **args);
@@ -154,7 +154,8 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstnew(void *content);
 int		ft_check_redir(t_node *node);
 // exec_simple.c
-void	ft_reset_stds(bool piped);
+// void	ft_reset_stds(bool piped);
+void ft_reset_stds(int original_stdin, int original_stdout, bool piped);
 // int		ft_exec_builtin(char **args, t_minishell *minishell);
 bool	ft_is_builtin(char *arg);
 

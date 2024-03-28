@@ -6,7 +6,7 @@
 /*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 19:43:55 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/27 17:27:43 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/27 21:35:09 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ bool	check_current_token(t_minishell *minishell)
 	return (true);
 }
 
-bool	ft_get_redir_list(t_redir_node **redir_list, t_minishell *minishell)
+bool	ft_get_redir_list(t_redir_node **redir_list, t_minishell *minishell, t_node *node)
 {
 	t_token_type	redir_type;
 
@@ -167,6 +167,12 @@ bool	ft_get_redir_list(t_redir_node **redir_list, t_minishell *minishell)
 		}
 		if (!create_and_append_redir_node(redir_list, minishell, redir_type))
 		{
+			ft_clear_redir_list(redir_list);
+			ft_set_parse_error(MALLOC_ERROR);
+			if (node) { // Check for NULL
+				free(node->split_args);
+				free(node);
+			}
 			return (false);
 		}
 		// ft_get_next_token(minishell);

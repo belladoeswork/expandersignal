@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_simple.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:15:54 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/26 18:55:00 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/28 01:05:19 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,16 @@ int	ft_exec_builtin(char **args, t_minishell *minishell)
 int	ft_exec_builtin_cmd(t_node *node, bool piped, t_minishell *minishell)
 {
 	int	tmp_status;
+	int	original_stdin;
+    int	original_stdout;
+	original_stdin = dup(STDIN_FILENO);
+    original_stdout = dup(STDOUT_FILENO);
+	
 
 	tmp_status = ft_check_redir(node);
 	if (tmp_status != SUCCESS)
 	{
-		ft_reset_stds(piped);
+		ft_reset_stds(original_stdin, original_stdout, piped);
 		printf("exec_simple_cmd: Redirection check failed\n");
 		return (GENERAL);
 	}
@@ -52,28 +57,37 @@ int	ft_exec_builtin_cmd(t_node *node, bool piped, t_minishell *minishell)
 	{
 		tmp_status = ft_exec_builtin(node->split_args, minishell);
 	}
-	ft_reset_stds(piped);
+	ft_reset_stds(original_stdin, original_stdout, piped);
 	return (tmp_status);
 }
 
 int	ft_exec_non_builtin_cmd(t_node *node, bool piped)
 {
 	int	tmp_status;
+	int	original_stdin;
+    int	original_stdout;
+	original_stdin = dup(STDIN_FILENO);
+    original_stdout = dup(STDOUT_FILENO);
 
 	tmp_status = ft_check_redir(node);
 	if (tmp_status != SUCCESS)
 	{
-		ft_reset_stds(piped);
+		ft_reset_stds(original_stdin, original_stdout, piped);
 		printf("exec_simple_cmd: Redirection check failed\n");
 		return (GENERAL);
 	}
 	tmp_status = ft_exec_child(node->split_args);
+	ft_reset_stds(original_stdin, original_stdout, piped);
 	return (tmp_status);
 }
 
 int	ft_exec_simple_cmd(t_node *node, bool piped, t_minishell *minishell)
 {
 	int	tmp_status;
+	int	original_stdin;
+    int	original_stdout;
+	original_stdin = dup(STDIN_FILENO);
+    original_stdout = dup(STDOUT_FILENO);
 
 	if (node->split_args && node->split_args[0])
 	{
@@ -88,6 +102,7 @@ int	ft_exec_simple_cmd(t_node *node, bool piped, t_minishell *minishell)
 			printf("exec_simple_cmd: Not a builtin command\n");
 			tmp_status = ft_exec_non_builtin_cmd(node, piped);
 		}
+		ft_reset_stds(original_stdin, original_stdout, piped);
 		return (tmp_status);
 	}
 	else
@@ -96,3 +111,5 @@ int	ft_exec_simple_cmd(t_node *node, bool piped, t_minishell *minishell)
 		return (GENERAL);
 	}
 }
+
+

@@ -181,3 +181,191 @@ Error handling for execve: You should check if execve fails and handle the error
 //     ft_token_list_add_back(token_list, token);
 //     return (1);
 // }
+
+
+
+In your ft_modif_env_var function, you're calling ft_free_double_d(minishell->environ) before assigning minishell->environ to new_environ. This is correct, as you're freeing the old environment before assigning the new one.
+
+However, in your ft_add_env_var function, you're also calling ft_free_double_d(minishell->environ) before assigning minishell->environ to str. This is also correct in isolation.
+
+The problem arises when ft_add_env_var calls ft_modif_env_var, because ft_modif_env_var also frees minishell->environ. So if ft_add_env_var calls ft_modif_env_var, minishell->environ will be freed twice, which is likely the cause of your segfault.
+
+To fix this, you should remove the call to ft_free_double_d(minishell->environ) from ft_add_env_var. The ft_modif_env_var function should be responsible for freeing minishell->environ, and ft_add_env_var should not free it again.
+
+
+
+echo "hi" | echo command IN MY TERMINAL DOES NOT PRINT ANYTHING. PLEASE FIX MY CODE:
+exec_simple_cmd: Command - echo
+is_builtin: Checking command - echo
+is_builtin: Detected as builtin command
+exec_simple_cmd: Detected builtin command
+exec_builtin: Executing command - echo
+THE CODE:
+bool	ft_current_token_is_op(t_minishell *minishell)
+{
+	t_token_type	type;
+
+	if (!minishell->current_token)
+		return (false);
+	type = minishell->current_token->type;
+	if (type == TOKEN_PIPE)
+		return (true);
+	return (false);
+}
+t_node	*ft_term(t_minishell *minishell)
+{
+	if (minishell->parse_error.type)
+		return (NULL);
+	if (ft_current_token_is_op(minishell))
+	{
+		ft_set_parse_error(SYNTAX_ERROR);
+		return (NULL);
+	}
+	else
+	{
+		return (ft_get_simple_cmd(minishell));
+	}
+}
+t_node	*ft_get_simple_cmd(t_minishell *minishell)
+{
+	t_node	*node;
+	char	**split_args;
+	int		i;
+
+	if (minishell->parse_error.type)
+		return (NULL);
+	node = ft_create_node();
+	if (!node)
+		return (NULL);
+	split_args = ft_allocate_split_args();
+	if (!split_args)
+	{
+		free(node);
+		return (NULL);
+	}
+	node->split_args = split_args;
+	i = 0;
+	ft_process_tokens(minishell, node, &i);
+	node->split_args[i] = NULL;
+	return (node);
+}
+t_node	*ft_expression(t_minishell *minishell)
+{
+	t_node			*left;
+	t_node			*right;
+	t_token_type	op;
+
+	if (minishell->parse_error.type || !minishell->current_token)
+		return (NULL);
+	left = ft_term(minishell);
+	if (!left)
+		return (NULL);
+	while (ft_current_token_is_op(minishell))
+	{
+		op = minishell->current_token->type;
+		ft_get_next_token(minishell);
+		if (!minishell->current_token)
+			return (ft_set_parse_error(SYNTAX_ERROR), left);
+		right = ft_expression(minishell);
+		if (!right)
+			return (left);
+		left = ft_combine(op, left, right, minishell);
+		if (!left)
+			return (ft_clear_ast(&left, minishell), ft_clear_ast(&right,
+					minishell), NULL);
+	}
+	return (left);
+}
+void	ft_get_next_token(t_minishell *minishell)
+{
+	minishell->current_token = minishell->current_token->next;
+}
+
+t_node	*ft_combine(t_token_type op, t_node *left, t_node *right,
+		t_minishell *minishell)
+{
+	t_node	*node;
+
+	if (minishell->parse_error.type)
+		return (NULL);
+	node = ft_new_node(ft_get_node_type(op));
+	if (!node)
+		return (ft_set_parse_error(MALLOC_ERROR), NULL);
+	node->left = left;
+	node->right = right;
+	return (node);
+}
+int	ft_exec_node(t_node *tree, bool piped, t_minishell *minishell)
+{
+	if (!tree)
+		return (1);
+	if (tree->type == NODE_PIPE)
+		return (ft_exec_pipeline(tree, minishell));
+	else
+		return (ft_exec_simple_cmd(tree, piped, minishell));
+	return (GENERAL);
+}
+static int	ft_exec_pipeline(t_node *tree, t_minishell *minishell)
+{
+	int	status;
+	int	pfds[2];
+	int	pid_left;
+	int	pid_right;
+
+	pipe(pfds);
+	pid_left = fork();
+	if (pid_left == 0)
+	{
+		child_process_left(tree, pfds, minishell);
+	}
+	pid_right = fork();
+	if (pid_right == 0)
+	{
+		child_process_right(tree, pfds, minishell);
+	}
+	close(pfds[0]);
+	close(pfds[1]);
+	waitpid(pid_left, &status, 0);
+	waitpid(pid_right, &status, 0);
+	return (ft_get_exit_status(status));
+}
+int	ft_get_exit_status(int status)
+{
+	if (WIFSIGNALED(status))
+		return (128 + WTERMSIG(status));
+	return (WEXITSTATUS(status));
+}
+int	ft_exec_node(t_node *tree, bool piped, t_minishell *minishell)
+{
+	if (!tree)
+		return (1);
+	if (tree->type == NODE_PIPE)
+		return (ft_exec_pipeline(tree, minishell));
+	else
+		return (ft_exec_simple_cmd(tree, piped, minishell));
+	return (GENERAL);
+}
+static void	child_process_left(t_node *tree, int *pfds, t_minishell *minishell)
+{
+	close(pfds[0]);
+	dup2(pfds[1], STDOUT_FILENO);
+	close(pfds[1]);
+	ft_exec_node(tree->left, true, minishell);
+	exit(EXIT_FAILURE);
+}
+static void	child_process_right(t_node *tree, int *pfds, t_minishell *minishell)
+{
+	close(pfds[1]);
+	dup2(pfds[0], STDIN_FILENO);
+	close(pfds[0]);
+	ft_exec_node(tree->right, true, minishell);
+	exit(EXIT_FAILURE);
+}
+
+
+
+tests for pipe??
+echo "Hello, world!" | echo
+echo "TEST_VAR=Hello, world!" | export && echo $TEST_VAR
+export TEST_VAR="Hello, world!" && echo "TEST_VAR" | unset && echo $TEST_VAR
+echo "/" | pwd

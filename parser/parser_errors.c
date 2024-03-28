@@ -6,7 +6,7 @@
 /*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 19:43:38 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/27 17:30:29 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/27 23:19:35 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	ft_set_parse_error(t_parse_error_type type)
 	t_minishell	*minishell;
 
 	minishell = NULL;
-	minishell->parse_error.type = type;
+	// minishell->parse_error.type = type;
+	if (minishell) {
+        minishell->parse_error.type = type;
+    }
 }
 
 void	ft_handle_parse_error(t_minishell *minishell)
@@ -92,26 +95,26 @@ t_token_type	ft_determine_token_type(t_minishell *minishell)
 	return (token_type);
 }
 
-void	ft_handle_parse_error(t_minishell *minishell)
-{
-	t_token_type	token_type;
+// void	ft_handle_parse_error(t_minishell *minishell)
+// {
+// 	t_token_type	token_type;
 
-	if (minishell == NULL)
-	{
-		return ;
-	}
-	if (minishell->parse_error.type == 0)
-	{
-		return ;
-	}
-	if (minishell->parse_error.type == SYNTAX_ERROR)
-	{
-		token_type = ft_determine_token_type(minishell);
-		ft_print_syntax_error(minishell, token_type);
-	}
-	ft_clear_ast(&(minishell->ast), minishell);
-	ft_bzero(&(minishell->parse_error), sizeof(t_parse_error));
-}
+// 	if (minishell == NULL)
+// 	{
+// 		return ;
+// 	}
+// 	if (minishell->parse_error.type == 0)
+// 	{
+// 		return ;
+// 	}
+// 	if (minishell->parse_error.type == SYNTAX_ERROR)
+// 	{
+// 		token_type = ft_determine_token_type(minishell);
+// 		ft_print_syntax_error(minishell, token_type);
+// 	}
+// 	ft_clear_ast(&(minishell->ast), minishell);
+// 	ft_bzero(&(minishell->parse_error), sizeof(t_parse_error));
+// }
 
 // CHECK THIS FURTHER?
 void ft_handle_error(t_minishell *minishell) {

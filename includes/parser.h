@@ -6,7 +6,7 @@
 /*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 00:28:36 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/27 15:54:42 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/27 21:12:35 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ bool check_parse_error(t_minishell *minishell);
 bool check_current_token(t_minishell *minishell);
 bool check_token_type(t_minishell *minishell);
 bool create_and_append_redir_node(t_redir_node **redir_list, t_minishell *minishell, t_token_type redir_type);
-bool ft_get_redir_list(t_redir_node **redir_list, t_minishell *minishell);
+bool ft_get_redir_list(t_redir_node **redir_list, t_minishell *minishell, t_node *node);
 // parser.c
 t_node					*ft_parse(t_minishell *minishell);
 

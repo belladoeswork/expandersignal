@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 00:27:06 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/27 00:53:43 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/28 16:24:07 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_token		*ft_expander(t_token *tokenized_tokens, char **env);
 
 // ft_frees.c
 void		ft_free_double_d(char **str);
-void	ft_free_new_str_str(char ***new_str_str);
+void ft_free_new_str_str(char ***new_str_str);
 void	ft_free_envi(char **part1, char **part2);
 // expand_tilde.c
 char *ft_expand_tilde(char *str, char **p1, char **p2);

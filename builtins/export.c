@@ -6,7 +6,7 @@
 /*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 21:06:35 by aguede            #+#    #+#             */
-/*   Updated: 2024/03/27 08:12:46 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/28 16:58:33 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	ft_modif_env_var(t_lists_env envi, char *key, char *value,
 		i++;
 	}
 	new_environ = duplicate_environ(minishell->environ, key_update, value);
+	ft_free_double_d(minishell->environ);
 	minishell->environ = new_environ;
 	free(key_update);
 }
@@ -175,7 +176,10 @@ void	ft_add_env_var(char *key, char *value, int true_or_false,
 	}
 	else if (true_or_false == 0)
 		ft_modif_env_var(list_env, key, value, minishell);
+	printf("Before freeing list_env: %p\n", minishell->environ);
 	ft_free_lists_env(list_env);
+	printf("After freeing list_env: %p\n", minishell->environ);
+
 }
 
 // int	ft_key_check(char *key, t_minishell *minishell)
