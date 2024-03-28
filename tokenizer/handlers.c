@@ -6,7 +6,7 @@
 /*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 21:06:14 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/28 18:25:03 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/28 21:17:40 by tbella-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,74 +328,152 @@ int	ft_handle_separator(char **line_ptr, t_token **token_list)
 // 	return (1);
 // }
 
-
-int	ft_handle_quotes(char *line, int *in_quotes, int *i)
+static int	ft_handle_quotes(char *line, int *in_quotes, int *i)
 {
-    if (line[*i] == '"')
-    {
-		if (!*in_quotes)
-
+	if (line[*i] == '"')
+	{
+		if (*in_quotes)
 			*in_quotes = 0;
 		else
-			*in_quotes =line[*i];
+			*in_quotes = line[*i];
 		(*i)++;
-        return (1);
-    }
-    return (0);
+		return (1);
+	}
+	return (0);
 }
 
-int	ft_handle_backslash(char *line, int *i)
+static int	ft_handle_backslash(char *line, int *i)
 {
-    if (line[*i] == '\\' && line[*i + 1])
-    {
-        (*i)++;
-        return (1);
-    }
-    return (0);
+	if (line[*i] == '\\' && line[*i + 1])
+	{
+		(*i)++;
+		return (1);
+	}
+	return (0);
 }
 
-int	ft_handle_word(char *line, int in_quotes, int *i)
+static int	ft_handle_word(char *line, int in_quotes, int *i)
 {
-    if (!in_quotes && (line[*i] == '<' || line[*i] == '>' || line[*i] == '|' || line[*i] == ' '))
-        return (0);
-    (*i)++;
-    return (1);
+	if (!in_quotes && (line[*i] == '<' || line[*i] == '>' || line[*i] == '|'
+			|| line[*i] == ' '))
+		return (0);
+	(*i)++;
+	return (1);
+}
+
+static char	*ft_extract_word(char **line_ptr)
+{
+	int		i;
+	int		in_quotes;
+	char	*word;
+	int		j;
+
+	i = 0;
+	word = malloc(ft_strlen(*line_ptr) + 1);
+	j = 0;
+	in_quotes = 0;
+	if (!word)
+		return (NULL);
+	while ((*line_ptr)[i]) 
+	{
+        if ((int)(j + 1) >= (int)ft_strlen(*line_ptr))
+            break;
+		if (ft_handle_quotes(*line_ptr, &in_quotes, &i)
+			|| ft_handle_backslash(*line_ptr, &i) || ft_handle_word(*line_ptr,
+				in_quotes, &i))
+			word[j++] = (*line_ptr)[i - 1];
+		else
+			break ;
+	}
+	word[j] = '\0';
+	*line_ptr += i;
+	return (word);
+}
+
+static int	ft_append_token(t_token **token_list, char *word)
+{
+	int	result;
+
+	result = ft_token_list_add_back(token_list, ft_new_token(word, TOKEN_WORD));
+	if (result == 0)
+		free(word);
+	return (result);
 }
 
 int	ft_append_word(char **line_ptr, t_token **token_list)
 {
-    int		i = 0;
-    int		in_quotes = 0;
-	char *word;
-	*word = malloc(ft_strlen(*line_ptr) + 1);
-	int		j = 0;
-	int result;
+	char	*word;
+	int		result;
 
+	word = ft_extract_word(line_ptr);
 	if (!word)
-        return (0);
-    while ((*line_ptr)[i] && j < ft_strlen(*line_ptr))
-    {
-        if (ft_handle_quotes(*line_ptr, &in_quotes, &i) || ft_handle_backslash(*line_ptr, &i) || ft_handle_word(*line_ptr, in_quotes, &i))
-            word[j++] = (*line_ptr)[i - 1];
-        else
-            break ;
-    }
-    word[j] = '\0';
-    *line_ptr += i;
-    return (ft_token_list_add_back(token_list, ft_new_token(word, TOKEN_WORD)) ? 1 : (free(word), 0));
+		return (0);
+	result = ft_append_token(token_list, word);
+	return (result);
 }
-
-
-
-
-
-
-
-
-
 
 /////////
 
+// t_token	*ft_tokenization_handler(char *line)
+// {
+// 	int		error;
+// 	t_token	*token_list;
+
+// 	error = 0;
+// 	token_list = NULL;
+// 	while (*line)
+// 	{
+// 		if (error)
+// 		{
+// 			ft_clear_token_list(&token_list);
+// 			return (NULL);
+// 		}
+// 		if (ft_isspace(*line))
+// 			ft_skip_spaces(&line);
+// 		else if (!ft_strncmp(line, "<", 1) || !ft_strncmp(line, ">", 1)
+// 			|| !ft_strncmp(line, "|", 1))
+// 			error = !ft_handle_separator(&line, &token_list);
+// 		else
+// 			error = !ft_append_word(&line, &token_list);
+// 	}
+// 	if (error)
+// 	{
+// 		ft_clear_token_list(&token_list);
+// 		return (NULL);
+// 	}
+// 	return (token_list);
+// }
+
+int	ft_handle_tk_error(int *error, t_token **token_list)
+{
+	if (*error)
+	{
+		ft_clear_token_list(token_list);
+		return (1);
+	}
+	return (0);
+}
+
+int	ft_handle_token(char **line, t_token **token_list)
+{
+	if (ft_isspace(**line))
+	{
+		ft_skip_spaces(line);
+		return (0);
+	}
+	else if (!ft_strncmp(*line, "<", 1) || !ft_strncmp(*line, ">", 1)
+		|| !ft_strncmp(*line, "|", 1))
+	{
+		if (!ft_handle_separator(line, token_list))
+			return (1);
+	}
+	else
+	{
+		if (!ft_append_word(line, token_list))
+			return (1);
+	}
+	return (0);
+}
 
 t_token	*ft_tokenization_handler(char *line)
 {
@@ -406,23 +484,11 @@ t_token	*ft_tokenization_handler(char *line)
 	token_list = NULL;
 	while (*line)
 	{
-		if (error)
-		{
-			ft_clear_token_list(&token_list);
+		if (ft_handle_tk_error(&error, &token_list))
 			return (NULL);
-		}
-		if (ft_isspace(*line))
-			ft_skip_spaces(&line);
-		else if (!ft_strncmp(line, "<", 1) || !ft_strncmp(line, ">", 1)
-			|| !ft_strncmp(line, "|", 1))
-			error = !ft_handle_separator(&line, &token_list);
-		else
-			error = !ft_append_word(&line, &token_list);
+		error = ft_handle_token(&line, &token_list);
 	}
-	if (error)
-	{
-		ft_clear_token_list(&token_list);
+	if (ft_handle_tk_error(&error, &token_list))
 		return (NULL);
-	}
 	return (token_list);
 }

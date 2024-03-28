@@ -58,6 +58,7 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
     "ctype.h": "c",
-    "lumumbash.h": "c"
+    "lumumbash.h": "c",
+    "CHECJ.C": "cpp"
   }
 }
