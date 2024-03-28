@@ -6,7 +6,7 @@
 /*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 20:27:00 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/28 05:17:10 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/28 20:03:33 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,6 @@
 // 	exit(exit_s);
 // }
 
-
-
-
-
-
-
-
 #include "lumumbash.h"
 
 // static bool	ft_isnumber(char *s)
@@ -123,34 +116,86 @@ static void	ft_skip_spaces_and_get_sign(char *s, int *i, int *sign)
 	}
 }
 
+// static int	ft_exittoi(char *s, t_minishell *minishell)
+// {
+// 	int					i;
+// 	int					sign;
+// 	int					exit_s;
+// 	unsigned long long	result;
+
+// 	i = 0;
+// 	sign = 1;
+// 	ft_skip_spaces_and_get_sign(s, &i, &sign);
+// 	if (!ft_isnumber(s + i))
+// 	{
+// 		exit_s = ft_error_msg((t_error){ERROR_EXEC_255, NUMERIC_REQUIRED, s});
+// 		(ft_clean_shell(minishell), exit(exit_s));
+// 	}
+// 	result = 0;
+// 	while (s[i])
+// 	{
+// 		result = (result * 10) + (s[i] - '0');
+// 		if (result > LONG_MAX)
+// 		{
+// 			exit_s = ft_error_msg((t_error){ERROR_EXEC_255, NUMERIC_REQUIRED,
+// 					s});
+// 			(ft_clean_shell(minishell), exit(exit_s));
+// 		}
+// 		i++;
+// 	}
+// 	return ((result * sign) % 256);
+// }
+
+static void	check_number_and_exit(char *s, int i, t_minishell *minishell)
+{
+	int	exit_s;
+
+	if (!ft_isnumber(s + i))
+	{
+		exit_s = ft_error_msg((t_error){ERROR_EXEC_255, NUMERIC_REQUIRED, s});
+		ft_clean_shell(minishell);
+		exit(exit_s);
+	}
+}
+
+static unsigned long long	calculate_result(char *s, int *i)
+{
+	unsigned long long	result;
+
+	result = 0;
+	while (s[*i])
+	{
+		result = (result * 10) + (s[*i] - '0');
+		(*i)++;
+	}
+	return (result);
+}
+
+static void	check_result_and_exit(unsigned long long result, char *s,
+		t_minishell *minishell)
+{
+	int	exit_s;
+
+	if (result > LONG_MAX)
+	{
+		exit_s = ft_error_msg((t_error){ERROR_EXEC_255, NUMERIC_REQUIRED, s});
+		ft_clean_shell(minishell);
+		exit(exit_s);
+	}
+}
+
 static int	ft_exittoi(char *s, t_minishell *minishell)
 {
 	int					i;
 	int					sign;
-	int					exit_s;
 	unsigned long long	result;
 
-	// t_minishell *minishell = NULL;
 	i = 0;
 	sign = 1;
 	ft_skip_spaces_and_get_sign(s, &i, &sign);
-	if (!ft_isnumber(s + i))
-	{
-		exit_s = ft_error_msg((t_error){ERROR_EXEC_255, NUMERIC_REQUIRED, s});
-		(ft_clean_shell(minishell), exit(exit_s));
-	}
-	result = 0;
-	while (s[i])
-	{
-		result = (result * 10) + (s[i] - '0');
-		if (result > LONG_MAX)
-		{
-			exit_s = ft_error_msg((t_error){ERROR_EXEC_255, NUMERIC_REQUIRED,
-					s});
-			(ft_clean_shell(minishell), exit(exit_s));
-		}
-		i++;
-	}
+	check_number_and_exit(s, i, minishell);
+	result = calculate_result(s, &i);
+	check_result_and_exit(result, s, minishell);
 	return ((result * sign) % 256);
 }
 

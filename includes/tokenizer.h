@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 00:28:48 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/27 00:28:53 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/28 22:15:25 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,17 @@ typedef enum
 	TOKEN_HEREDOC,                   // <<
 	TOKEN_NL                         // \n
 }					t_token_type;
+
+typedef struct {
+    char *TOKEN_WORD;
+    char *TOKEN_PIPE;
+    char *TOKEN_INPUT_REDIRECTION;
+    char *TOKEN_OUTPUT_REDIRECTION;
+    char *TOKEN_APPEND_OUTPUT_REDIRECTION;
+    char *TOKEN_HEREDOC;
+    char *TOKEN_NL;
+} TokenTypeStrings;
+
 typedef struct s_token
 {
 	t_token_type	type;
@@ -86,7 +97,13 @@ int					ft_append_word(char **line_ptr, t_token **token_list);
 void				ft_free_token(t_token *token);
 t_token				*ft_tokenization_handler(char *line);
 
-int					ft_append_separator(t_token_type type, char **line_ptr,
+int ft_handle_pipe2(char **line_ptr, t_token **token_list);
+int ft_handle_output_redirection2(char **line_ptr, t_token **token_list);
+int ft_handle_input_redirection2(char **line_ptr, t_token **token_list);
+int ft_handle_append_output_redirection2(char **line_ptr, t_token **token_list);
+int ft_handle_heredoc2(char **line_ptr, t_token **token_list);
+
+int ft_append_separator(t_token_type type, char **line_ptr,
 						t_token **token_list);
 // int ft_append_word(char **line_ptr, t_token **token_list);
 // t_token *ft_tokenization_handler(char *line);
@@ -94,8 +111,8 @@ int					ft_append_separator(t_token_type type, char **line_ptr,
 int					ft_process_token(char **line, t_token **token_list);
 
 int					ft_handle_heredoc(char **line_ptr, t_token **token_list);
-int					ft_handle_append_output_redirection(char **line_ptr,
-						t_token **token_list);
+// int					ft_handle_append_output_redirection(char **line_ptr,
+// 						t_token **token_list);
 int					ft_handle_input_redirection(char **line_ptr,
 						t_token **token_list);
 int					ft_handle_output_redirection(char **line_ptr,

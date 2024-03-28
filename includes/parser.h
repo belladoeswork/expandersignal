@@ -6,7 +6,7 @@
 /*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 00:28:36 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/27 21:12:35 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/28 21:01:02 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,9 @@ void					ft_handle_parse_error(t_minishell *minishell);
 void					ft_print_syntax_error(t_minishell *minishell,
 							t_token_type token_type);
 t_token_type			ft_determine_token_type(t_minishell *minishell);
-bool					ft_process_redirection(t_redir_node **redir_list,
-							t_minishell *minishell, t_token_type redir_type);
+// bool					ft_process_redirection(t_redir_node **redir_list,
+// 							t_minishell *minishell, t_token_type redir_type);
+char *ft_get_token_string(t_token_type token_type);
 // parser_helpers.c
 t_node					*ft_term(t_minishell *minishell);
 t_node					*ft_combine(t_token_type op, t_node *left,
@@ -118,13 +119,14 @@ bool					ft_is_redir(t_token_type type);
 char					*ft_strjoin_with(char const *s1, char const *s2,
 							char c);
 bool					ft_join_args(char **args, t_minishell *minishell);
+bool ft_handle_redir_error(t_redir_node **redir_list, t_node *node);
 // bool					ft_get_redir_list(t_redir_node **redir_list,
 // 							t_minishell *minishell);
 
-bool check_parse_error(t_minishell *minishell);
-bool check_current_token(t_minishell *minishell);
-bool check_token_type(t_minishell *minishell);
-bool create_and_append_redir_node(t_redir_node **redir_list, t_minishell *minishell, t_token_type redir_type);
+bool ft_check_parse_error(t_minishell *minishell);
+bool ft_check_current_token(t_minishell *minishell);
+bool ft_check_token_type(t_minishell *minishell);
+bool ft_create_and_append_redir_node(t_redir_node **redir_list, t_minishell *minishell, t_token_type redir_type);
 bool ft_get_redir_list(t_redir_node **redir_list, t_minishell *minishell, t_node *node);
 // parser.c
 t_node					*ft_parse(t_minishell *minishell);

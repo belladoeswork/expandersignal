@@ -6,7 +6,7 @@
 /*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:16:27 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/28 17:27:37 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/28 20:08:21 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static void	child_process_left(t_node *tree, int *pfds, t_minishell *minishell)
 	exit(EXIT_FAILURE);
 }
 
-// static void	child_process_right(t_node *tree, int *pfds, t_minishell *minishell)
+// static void	child_process_right(t_node *tree, int *pfds,
+// t_minishell *minishell)
 // {
 // 	close(pfds[1]);
 // 	dup2(pfds[0], STDIN_FILENO);
@@ -37,22 +38,28 @@ static void	child_process_left(t_node *tree, int *pfds, t_minishell *minishell)
 // 	exit(EXIT_FAILURE);
 // }
 
-static void child_process_right(t_node *tree, int *pfds, t_minishell *minishell)
+static void	child_process_right(t_node *tree, int *pfds, t_minishell *minishell)
 {
-    close(pfds[1]);
-    if (strcmp(tree->right->split_args[0], "echo") == 0) {
-        char buffer[1024];
-        ssize_t count = read(pfds[0], buffer, sizeof(buffer) - 1);
-        if (count > 0) {
-            buffer[count] = '\0';
-            printf("%s\n", buffer);
-        }
-    } else {
-        dup2(pfds[0], STDIN_FILENO);
-        ft_exec_node(tree->right, true, minishell);
-    }
-    close(pfds[0]);
-    exit(EXIT_FAILURE);
+	char	buffer[1024];
+	ssize_t	count;
+
+	close(pfds[1]);
+	if (strcmp(tree->right->split_args[0], "echo") == 0)
+	{
+		count = read(pfds[0], buffer, sizeof(buffer) - 1);
+		if (count > 0)
+		{
+			buffer[count] = '\0';
+			printf("%s\n", buffer);
+		}
+	}
+	else
+	{
+		dup2(pfds[0], STDIN_FILENO);
+		ft_exec_node(tree->right, true, minishell);
+	}
+	close(pfds[0]);
+	exit(EXIT_FAILURE);
 }
 
 static int	ft_exec_pipeline(t_node *tree, t_minishell *minishell)

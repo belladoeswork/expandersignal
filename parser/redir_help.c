@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redir_help.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbella-n <tbella-n@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 00:47:16 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/27 00:48:06 by tbella-n         ###   ########.fr       */
+/*   Updated: 2024/03/28 20:59:34 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lumumbash.h"
 
-bool	check_token_type(t_minishell *minishell)
+bool	ft_check_token_type(t_minishell *minishell)
 {
 	t_token_type	token_type;
 
@@ -25,7 +25,7 @@ bool	check_token_type(t_minishell *minishell)
 	return (true);
 }
 
-bool	create_and_append_redir_node(t_redir_node **redir_list,
+bool	ft_create_and_append_redir_node(t_redir_node **redir_list,
 		t_minishell *minishell, t_token_type redir_type)
 {
 	t_redir_node	*tmp_redir_node;

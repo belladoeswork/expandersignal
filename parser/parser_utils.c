@@ -6,7 +6,7 @@
 /*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 19:43:55 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/27 21:35:09 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/28 21:01:34 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,19 +126,17 @@ bool	ft_join_args(char **args, t_minishell *minishell)
 // 	return (true);
 // }
 
-bool	check_parse_error(t_minishell *minishell)
+bool	ft_check_parse_error(t_minishell *minishell)
 {
 	t_parse_error_type	parse_error_type;
 
 	parse_error_type = minishell->parse_error.type;
 	if (parse_error_type)
-	{
 		return (false);
-	}
 	return (true);
 }
 
-bool	check_current_token(t_minishell *minishell)
+bool	ft_check_current_token(t_minishell *minishell)
 {
 	if (!minishell->current_token)
 	{
@@ -148,37 +146,69 @@ bool	check_current_token(t_minishell *minishell)
 	return (true);
 }
 
-bool	ft_get_redir_list(t_redir_node **redir_list, t_minishell *minishell, t_node *node)
+bool	ft_handle_redir_error(t_redir_node **redir_list, t_node *node)
+{
+	ft_clear_redir_list(redir_list);
+	ft_set_parse_error(MALLOC_ERROR);
+	if (node)
+	{
+		free(node->split_args);
+		free(node);
+	}
+	return (false);
+}
+
+bool	ft_get_redir_list(t_redir_node **redir_list, t_minishell *minishell,
+		t_node *node)
 {
 	t_token_type	redir_type;
 
-	if (!check_parse_error(minishell))
-	{
+	if (!ft_check_parse_error(minishell))
 		return (false);
-	}
 	while (minishell->current_token
 		&& ft_is_redir(minishell->current_token->type))
 	{
 		redir_type = minishell->current_token->type;
 		ft_get_next_token(minishell);
-		if (!check_current_token(minishell) || !check_token_type(minishell))
-		{
+		if (!ft_check_current_token(minishell)
+			|| !ft_check_token_type(minishell))
 			return (false);
-		}
-		if (!create_and_append_redir_node(redir_list, minishell, redir_type))
-		{
-			ft_clear_redir_list(redir_list);
-			ft_set_parse_error(MALLOC_ERROR);
-			if (node) { // Check for NULL
-				free(node->split_args);
-				free(node);
-			}
-			return (false);
-		}
-		// ft_get_next_token(minishell);
-		if (minishell->current_token) {
-            ft_get_next_token(minishell);
-        }
+		if (!ft_create_and_append_redir_node(redir_list, minishell, redir_type))
+			return (ft_handle_redir_error(redir_list, node));
+		if (minishell->current_token)
+			ft_get_next_token(minishell);
 	}
 	return (true);
 }
+
+// bool	ft_get_redir_list(t_redir_node **redir_list, t_minishell *minishell,
+// 		t_node *node)
+// {
+// 	t_token_type	redir_type;
+
+// 	if (!ft_check_parse_error(minishell))
+// 		return (false);
+// 	while (minishell->current_token
+// 		&& ft_is_redir(minishell->current_token->type))
+// 	{
+// 		redir_type = minishell->current_token->type;
+// 		ft_get_next_token(minishell);
+// 		if (!ft_check_current_token(minishell)
+			// || !ft_check_token_type(minishell))
+// 			return (false);
+// 		if (!ft_create_and_append_redir_node(redir_list, minishell, redir_type))
+// 		{
+// 			ft_clear_redir_list(redir_list);
+// 			ft_set_parse_error(MALLOC_ERROR);
+// 			if (node)
+// 			{
+// 				free(node->split_args);
+// 				free(node);
+// 			}
+// 			return (false);
+// 		}
+// 		if (minishell->current_token)
+// 			ft_get_next_token(minishell);
+// 	}
+// 	return (true);
+// }

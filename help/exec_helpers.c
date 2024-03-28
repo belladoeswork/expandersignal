@@ -6,7 +6,7 @@
 /*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:30:08 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/28 00:37:06 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/28 20:12:06 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@
 
 void	ft_reset_stds(int original_stdin, int original_stdout, bool piped)
 {
-    if (piped)
-        return ;
-    dup2(original_stdin, STDIN_FILENO);
-    dup2(original_stdout, STDOUT_FILENO);
-    close(original_stdin);
-    close(original_stdout);
+	if (piped)
+		return ;
+	dup2(original_stdin, STDIN_FILENO);
+	dup2(original_stdout, STDOUT_FILENO);
+	close(original_stdin);
+	close(original_stdout);
 }
 
 bool	ft_is_builtin(char *arg)

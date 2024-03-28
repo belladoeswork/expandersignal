@@ -6,7 +6,7 @@
 /*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:15:54 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/28 01:05:19 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/28 20:09:41 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ int	ft_exec_builtin_cmd(t_node *node, bool piped, t_minishell *minishell)
 {
 	int	tmp_status;
 	int	original_stdin;
-    int	original_stdout;
-	original_stdin = dup(STDIN_FILENO);
-    original_stdout = dup(STDOUT_FILENO);
-	
+	int	original_stdout;
 
+	original_stdin = dup(STDIN_FILENO);
+	original_stdout = dup(STDOUT_FILENO);
 	tmp_status = ft_check_redir(node);
 	if (tmp_status != SUCCESS)
 	{
@@ -65,10 +64,10 @@ int	ft_exec_non_builtin_cmd(t_node *node, bool piped)
 {
 	int	tmp_status;
 	int	original_stdin;
-    int	original_stdout;
-	original_stdin = dup(STDIN_FILENO);
-    original_stdout = dup(STDOUT_FILENO);
+	int	original_stdout;
 
+	original_stdin = dup(STDIN_FILENO);
+	original_stdout = dup(STDOUT_FILENO);
 	tmp_status = ft_check_redir(node);
 	if (tmp_status != SUCCESS)
 	{
@@ -85,10 +84,10 @@ int	ft_exec_simple_cmd(t_node *node, bool piped, t_minishell *minishell)
 {
 	int	tmp_status;
 	int	original_stdin;
-    int	original_stdout;
-	original_stdin = dup(STDIN_FILENO);
-    original_stdout = dup(STDOUT_FILENO);
+	int	original_stdout;
 
+	original_stdin = dup(STDIN_FILENO);
+	original_stdout = dup(STDOUT_FILENO);
 	if (node->split_args && node->split_args[0])
 	{
 		printf("exec_simple_cmd: Command - %s\n", node->split_args[0]);
@@ -111,5 +110,3 @@ int	ft_exec_simple_cmd(t_node *node, bool piped, t_minishell *minishell)
 		return (GENERAL);
 	}
 }
-
-

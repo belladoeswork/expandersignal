@@ -6,7 +6,7 @@
 /*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:15:45 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/28 02:05:31 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/28 20:06:50 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,27 @@
 // 	return (*status);
 // }
 
-
 int	ft_out(t_redir_node *redir_list, int *status)
 {
-    int	fd;
+	int	fd;
 
-    if (!redir_list->value)
-    {
-        *status = ft_error_msg((t_error){GENERAL, AMBIGUOUS,
-                redir_list->value});
-        return (*status);
-    }
-    fd = open(&redir_list->value[0], O_CREAT | O_WRONLY | O_TRUNC,
-            0644);
-    if (fd == -1)
-    {
-        *status = ft_error_msg(ft_check_write(&redir_list->value[0]));
-        return (*status);
-    }
-    dup2(fd, STDOUT_FILENO);
-    close(fd);
-
-    *status = 0;
-    return (*status);
+	if (!redir_list->value)
+	{
+		*status = ft_error_msg((t_error){GENERAL, AMBIGUOUS,
+				redir_list->value});
+		return (*status);
+	}
+	fd = open(&redir_list->value[0], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (fd == -1)
+	{
+		*status = ft_error_msg(ft_check_write(&redir_list->value[0]));
+		return (*status);
+	}
+	dup2(fd, STDOUT_FILENO);
+	close(fd);
+	*status = 0;
+	return (*status);
 }
-
 
 int	ft_in(t_redir_node *redir_list, int *status)
 {
@@ -100,8 +96,7 @@ int	ft_append(t_redir_node *redir_list, int *status)
 				redir_list->value});
 		return (*status);
 	}
-	fd = open(redir_list->value, O_CREAT | O_WRONLY | O_APPEND,
-			0644);
+	fd = open(redir_list->value, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
 	{
 		*status = ft_error_msg(ft_check_write(redir_list->value));

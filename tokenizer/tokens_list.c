@@ -6,7 +6,7 @@
 /*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 21:06:51 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/27 16:41:36 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/28 21:05:56 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ int	ft_token_list_add_back(t_token **lst, t_token *new_token)
 
 	counter = 0;
 	if (!new_token || new_token->next)
-	{
 		return (0);
-	}
 	if (!*lst)
 	{
 		*lst = new_token;
@@ -53,9 +51,7 @@ int	ft_token_list_add_back(t_token **lst, t_token *new_token)
 		curr_node = curr_node->next;
 		counter++;
 		if (counter > 1000 || !curr_node)
-		{
 			return (0);
-		}
 	}
 	curr_node->next = new_token;
 	new_token->prev = curr_node;

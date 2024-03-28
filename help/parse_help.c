@@ -6,7 +6,7 @@
 /*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 20:19:21 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/28 02:49:43 by tasha            ###   ########.fr       */
+/*   Updated: 2024/03/28 20:15:49 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,38 +40,66 @@ t_node	*ft_expression(t_minishell *minishell)
 	return (left);
 }
 
+// void	ft_process_tokens(t_minishell *minishell, t_node *node, int *i)
+// {
+// 	while (minishell->current_token
+// 		&& (minishell->current_token->type == TOKEN_WORD
+// 			|| ft_is_redir(minishell->current_token->type)))
+// 	{
+// 		// if (minishell->current_token->type == TOKEN_WORD)
+// 		if (minishell->current_token
+// 			&& minishell->current_token->type == TOKEN_WORD)
+// 		{
+// 			node->split_args[*i] = minishell->current_token->value;
+// 			(*i)++;
+// 		}
+// 		// else if (ft_is_redir(minishell->current_token->type))
+// 		else if (minishell->current_token
+// 			&& ft_is_redir(minishell->current_token->type))
+// 		{
+// 			if (!ft_get_redir_list(&(node->redir_list), minishell, node))
+// 			{
+// 				// minishell->current_token = NULL; // ADDED TODAY?
+// 				free(node->split_args);
+// 				// if (node->args) {
+// 				// 	free(node->args);
+// 				// }
+// 				free(node);
+// 				return ;
+// 			}
+// 		}
+// 		// minishell->current_token = minishell->current_token->next;
+// 		if (minishell->current_token)
+// 		{
+// 			minishell->current_token = minishell->current_token->next;
+// 		}
+// 	}
+// }
+
 void	ft_process_tokens(t_minishell *minishell, t_node *node, int *i)
 {
 	while (minishell->current_token
 		&& (minishell->current_token->type == TOKEN_WORD
 			|| ft_is_redir(minishell->current_token->type)))
 	{
-		// if (minishell->current_token->type == TOKEN_WORD)
-		if (minishell->current_token && minishell->current_token->type == TOKEN_WORD)
-
+		if (minishell->current_token
+			&& minishell->current_token->type == TOKEN_WORD)
 		{
 			node->split_args[*i] = minishell->current_token->value;
 			(*i)++;
 		}
-		// else if (ft_is_redir(minishell->current_token->type))
-		else if (minishell->current_token && ft_is_redir(minishell->current_token->type))
-
+		else if (minishell->current_token
+			&& ft_is_redir(minishell->current_token->type))
 		{
 			if (!ft_get_redir_list(&(node->redir_list), minishell, node))
 			{
-				// minishell->current_token = NULL; // ADDED TODAY?
 				free(node->split_args);
-				// if (node->args) {
-				// 	free(node->args);
-				// }
 				free(node);
 				return ;
 			}
 		}
-		// minishell->current_token = minishell->current_token->next;
-		if (minishell->current_token) {
-            minishell->current_token = minishell->current_token->next;
-        }
+		if (minishell->current_token)
+			minishell->current_token = minishell->current_token->next;
 	}
 }
 
