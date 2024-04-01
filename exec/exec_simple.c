@@ -6,7 +6,7 @@
 /*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:15:54 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/28 20:09:41 by tasha            ###   ########.fr       */
+/*   Updated: 2024/04/01 19:21:55 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,105 @@ int	ft_exec_builtin_cmd(t_node *node, bool piped, t_minishell *minishell)
 	return (tmp_status);
 }
 
+// int	ft_exec_non_builtin_cmd(t_node *node, bool piped)
+// {
+// 	int	tmp_status;
+// 	int	original_stdin;
+// 	int	original_stdout;
+
+// 	original_stdin = dup(STDIN_FILENO);
+// 	original_stdout = dup(STDOUT_FILENO);
+// 	tmp_status = ft_check_redir(node);
+// 	if (tmp_status != SUCCESS)
+// 	{
+// 		ft_reset_stds(original_stdin, original_stdout, piped);
+// 		printf("exec_simple_cmd: Redirection check failed\n");
+// 		return (GENERAL);
+// 	}
+// 	tmp_status = ft_exec_child(node->split_args);
+// 	ft_reset_stds(original_stdin, original_stdout, piped);
+// 	return (tmp_status);
+// }
+
+// int	ft_exec_non_builtin_cmd(t_node *node, bool piped)
+// {
+//     int	tmp_status;
+//     int	original_stdin;
+//     int	original_stdout;
+//     int	pipefd[2];
+//     pid_t	pid;
+
+//     original_stdin = dup(STDIN_FILENO);
+//     original_stdout = dup(STDOUT_FILENO);
+//     tmp_status = ft_check_redir(node);
+//     if (tmp_status != SUCCESS)
+//     {
+//         ft_reset_stds(original_stdin, original_stdout, piped);
+//         printf("exec_simple_cmd: Redirection check failed\n");
+//         return (GENERAL);
+//     }
+
+//     if (piped) {
+//         if (pipe(pipefd) == -1) {
+//             perror("pipe");
+//             return (GENERAL);
+//         }
+//     }
+
+//     pid = fork();
+//     if (pid == 0) {
+//         // Child process
+//         if (piped) {
+//             dup2(pipefd[1], STDOUT_FILENO);
+//             close(pipefd[0]);
+//         }
+//         execvp(node->split_args[0], node->split_args);
+//         perror("execvp");
+//         exit(EXIT_FAILURE);
+//     } else {
+//         // Parent process
+//         if (piped) {
+//             dup2(pipefd[0], STDIN_FILENO);
+//             close(pipefd[1]);
+//         }
+//         wait(NULL);
+//     }
+
+//     ft_reset_stds(original_stdin, original_stdout, piped);
+//     return (tmp_status);
+// }
+
+
 int	ft_exec_non_builtin_cmd(t_node *node, bool piped)
 {
-	int	tmp_status;
-	int	original_stdin;
-	int	original_stdout;
+    int	tmp_status;
+    int	original_stdin;
+    int	original_stdout;
+    pid_t	pid;
 
-	original_stdin = dup(STDIN_FILENO);
-	original_stdout = dup(STDOUT_FILENO);
-	tmp_status = ft_check_redir(node);
-	if (tmp_status != SUCCESS)
-	{
-		ft_reset_stds(original_stdin, original_stdout, piped);
-		printf("exec_simple_cmd: Redirection check failed\n");
-		return (GENERAL);
-	}
-	tmp_status = ft_exec_child(node->split_args);
-	ft_reset_stds(original_stdin, original_stdout, piped);
-	return (tmp_status);
+    original_stdin = dup(STDIN_FILENO);
+    original_stdout = dup(STDOUT_FILENO);
+    tmp_status = ft_check_redir(node);
+    if (tmp_status != SUCCESS)
+    {
+        ft_reset_stds(original_stdin, original_stdout, piped);
+        printf("exec_simple_cmd: Redirection check failed\n");
+        return (GENERAL);
+    }
+
+    pid = fork();
+    if (pid == 0) {
+        // Child process
+        execvp(node->split_args[0], node->split_args);
+        perror("execvp");
+        exit(EXIT_FAILURE);
+    } else {
+        // Parent process
+        wait(NULL);
+    }
+
+    ft_reset_stds(original_stdin, original_stdout, piped);
+    return (tmp_status);
 }
 
 int	ft_exec_simple_cmd(t_node *node, bool piped, t_minishell *minishell)

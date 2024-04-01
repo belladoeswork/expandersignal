@@ -6,7 +6,7 @@
 /*   By: tasha <tasha@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 00:28:01 by tbella-n          #+#    #+#             */
-/*   Updated: 2024/03/28 02:03:46 by tasha            ###   ########.fr       */
+/*   Updated: 2024/04/01 18:56:29 by tasha            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,10 @@ int		ft_allocate_word(char **word, char *line);
 
 /// newly added:
 int		ft_handle_flags(char **args);
+int ft_count_colons(char *path);
+char **ft_split_path(char *path);
+char *ft_find_command_path(const char *command);
+int ft_env(char **environ);
 
 // tree.c
 void	ft_init_tree(t_node *node);
